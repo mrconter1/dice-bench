@@ -1,3 +1,5 @@
+import { VideoPlayer } from '@/components/video-player'
+
 export default function Home() {
   return (
     <div className="container mx-auto px-4 py-12 max-w-3xl">
@@ -116,6 +118,42 @@ export default function Home() {
             interested in evaluating their models can contact us for access to the test set. We encourage
             the AI research community to join us in developing more PHL Benchmarks as we move into an
             era where traditional human-comparative benchmarks may no longer be sufficient.
+          </p>
+        </section>
+
+        <section className="mb-12">
+          <h2>Dataset</h2>
+          <p>
+            The benchmark consists of two parts:
+          </p>
+          <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+            <li>
+              A private evaluation set of 100 videos with known outcomes, used for
+              official model evaluation. These videos are split across 10 different
+              surfaces and dice colors to ensure robust testing.
+            </li>
+            <li>
+              A public example video (shown below) where researchers and visitors
+              can test their own prediction capabilities and understand the task's
+              complexity.
+            </li>
+          </ul>
+        </section>
+
+        <section className="mb-12">
+          <h2>Try it Yourself</h2>
+          <p>
+            Below is an example video that demonstrates the task. The video stops after
+            two bounces, and your challenge is to predict the final number shown on the die.
+            You can use the controls to play, pause, step through frames, and adjust playback
+            speed.
+          </p>
+          <div className="not-prose">
+            <VideoPlayer />
+          </div>
+          <p className="text-sm text-muted-foreground mt-4">
+            Note: This example is representative of the videos in the evaluation set but
+            is not part of the official benchmark.
           </p>
         </section>
       </main>
