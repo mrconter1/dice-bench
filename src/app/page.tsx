@@ -66,19 +66,16 @@ export default function Home() {
         <section id="phl-definition" className="mb-12">
           <h2>Post-Human Level (PHL) Benchmarks</h2>
           <p>
-            We propose a paradigm shift in AI evaluation methodology through the introduction of
-            Post-Human Level (PHL) Benchmarks. These benchmarks are fundamentally different from
-            traditional AI evaluation methods in that they are designed to measure capabilities
-            beyond human performance while maintaining objective measurability.
+            We propose Post-Human Level (PHL) Benchmarks as a new paradigm for AI evaluation. 
+            A PHL Benchmark is defined by three key criteria that distinguish it from traditional 
+            human-comparative benchmarks:
           </p>
           
-          <h3 className="text-xl font-semibold mt-8 mb-4">Definition of PHL Benchmarks</h3>
-          
-          <div className="space-y-6">
+          <div className="space-y-6 mt-6">
             <div>
               <h4 className="font-medium mb-2">1. Information Completeness</h4>
               <p>
-                Each datapoint must <i>arguably</i> contain sufficient information to theoretically achieve better
+                Each datapoint must contain sufficient information to theoretically achieve better
                 performance than random guessing. In DiceBench, each video frame sequence contains all the
                 physical information (momentum, rotation, surface properties) needed to predict
                 the outcome, even though humans cannot process this information effectively.
@@ -88,43 +85,20 @@ export default function Home() {
             <div>
               <h4 className="font-medium mb-2">2. Human Performance Gap</h4>
               <p>
-                Human performance is not a focus in PHL benchmarks, moving beyond using human capabilities
-                as a proxy for intelligence. Though human performance on these tasks is realistically very
-                low compared to the theoretical maximum, establishing that the benchmark measures capabilities
-                fundamentally disconnected from human intelligence.
+                The benchmark must measure capabilities fundamentally disconnected from human intelligence.
+                Human performance should be demonstrably far from optimal, ensuring the benchmark remains
+                relevant long after AI systems surpass human-level performance in traditional tasks.
               </p>
             </div>
 
             <div>
               <h4 className="font-medium mb-2">3. Objective Evaluation</h4>
               <p>
-                Each data point must have an unambiguous, verifiable correct answer. This
-                allows for precise performance measurement and makes it possible to identify
-                when an AI system has achieved superior performance. In DiceBench, each
-                video has exactly one correct final die outcome.
+                Each data point must have an unambiguous, verifiable correct answer, allowing for precise
+                performance measurement. This enables us to identify superior performance even in domains
+                where humans perform poorly. In DiceBench, each video has exactly one correct final die outcome.
               </p>
             </div>
-          </div>
-
-          <div className="mt-8 p-6 border rounded-lg bg-muted/50">
-            <h4 className="font-medium mb-2">Why This Matters</h4>
-            <p>
-              Traditional benchmarks become obsolete when AI reaches human-level performance,
-              making it difficult to measure further progress. PHL Benchmarks provide a new
-              way to measure AI capabilities by identifying tasks where:
-            </p>
-            <ul className="mt-4 ml-6 list-disc space-y-2">
-              <li>
-                We can be confident better-than-human performance is possible (Information Completeness)
-              </li>
-              <li>
-                We can verify when it has been achieved (Objective Evaluation)
-              </li>
-              <li>
-                The benchmark won't be quickly saturated by reaching human-level performance
-                (Human Performance Gap)
-              </li>
-            </ul>
           </div>
         </section>
 
