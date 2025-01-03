@@ -1,5 +1,6 @@
 import { VideoPlayer } from '@/components/video-player'
 import { ContactButton } from '@/components/contact-button'
+import { SortableTable } from "@/components/sortable-table"
 
 export default function Home() {
   return (
@@ -127,30 +128,7 @@ export default function Home() {
         <section id="performance" className="mb-16 scroll-mt-20">
           <h2 className="text-secondary-foreground">Current Performance</h2>
           <div className="not-prose">
-            <div className="border-2 rounded-xl p-8 bg-secondary/20 shadow-lg shadow-secondary/5">
-              <table className="w-full">
-                <thead>
-                  <tr>
-                    <th className="text-left pb-4 text-primary font-bold">System</th>
-                    <th className="text-right pb-4 text-primary font-bold">Accuracy</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-secondary">
-                  <tr>
-                    <td className="py-4">Random Baseline</td>
-                    <td className="text-right font-mono text-accent">16.67%</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4">Human Performance</td>
-                    <td className="text-right font-mono text-accent">x%</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4">Gemini 1.5 Pro</td>
-                    <td className="text-right font-mono text-accent">N%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <SortableTable />
           </div>
         </section>
 
