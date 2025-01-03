@@ -14,7 +14,7 @@ export function SiteHeader() {
                 rel="noopener noreferrer">
             H-Matched
           </Link>
-          <a href="https://github.com" 
+          <a href="https://github.com/mrconter1/dice-bench" 
              className="text-muted-foreground hover:text-foreground text-sm"
              target="_blank"
              rel="noopener noreferrer">
