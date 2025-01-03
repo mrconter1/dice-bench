@@ -11,6 +11,10 @@ export function VideoPlayer() {
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [videoStatus, setVideoStatus] = useState<string>('Loading...')
   const [isLoaded, setIsLoaded] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [duration, setDuration] = useState(0)
+  const progressBarRef = useRef<HTMLDivElement>(null)
+  const isDraggingRef = useRef(false)
 
   const handleVideoLoaded = () => {
     setIsLoaded(true)
@@ -85,6 +89,70 @@ export function VideoPlayer() {
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [showTest, togglePlay, stepFrame]) // Include dependencies
 
+  // Add time update handler
+  const handleTimeUpdate = () => {
+    if (videoRef.current && !isDraggingRef.current) {
+      setProgress(videoRef.current.currentTime)
+    }
+  }
+
+  // Handle video metadata loaded
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      setDuration(videoRef.current.duration)
+    }
+  }
+
+  // Handle click on progress bar
+  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (videoRef.current && progressBarRef.current) {
+      const rect = progressBarRef.current.getBoundingClientRect()
+      const pos = (e.clientX - rect.left) / rect.width
+      const newTime = pos * duration
+      videoRef.current.currentTime = newTime
+      setProgress(newTime)
+    }
+  }
+
+  // Handle drag on progress bar
+  const handleProgressBarDrag = useCallback((e: MouseEvent) => {
+    if (videoRef.current && progressBarRef.current) {
+      const rect = progressBarRef.current.getBoundingClientRect()
+      const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
+      const newTime = pos * duration
+      videoRef.current.currentTime = newTime
+      setProgress(newTime)
+    }
+  }, [duration])
+
+  const handleDragStart = () => {
+    isDraggingRef.current = true
+    window.addEventListener('mousemove', handleProgressBarDrag)
+    window.addEventListener('mouseup', handleDragEnd)
+  }
+
+  const handleDragEnd = useCallback(() => {
+    isDraggingRef.current = false
+    window.removeEventListener('mousemove', handleProgressBarDrag)
+    window.removeEventListener('mouseup', handleDragEnd)
+  }, [handleProgressBarDrag])
+
+  // Cleanup drag listeners
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('mousemove', handleProgressBarDrag)
+      window.removeEventListener('mouseup', handleDragEnd)
+    }
+  }, [handleProgressBarDrag, handleDragEnd])
+
+  // Format time as MM:SS.mmm
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60)
+    const seconds = Math.floor(time % 60)
+    const milliseconds = Math.floor((time % 1) * 1000)
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`
+  }
+
   if (!showTest) {
     return (
       <div className="flex justify-center">
@@ -105,6 +173,8 @@ export function VideoPlayer() {
           ref={videoRef}
           className="w-full h-full object-contain"
           onEnded={() => setIsPlaying(false)}
+          onTimeUpdate={handleTimeUpdate}
+          onLoadedMetadata={handleLoadedMetadata}
           controls={false}
           playsInline
           preload="auto"
@@ -125,6 +195,29 @@ export function VideoPlayer() {
         )}
       </div>
       
+      {/* Time slider */}
+      <div className="space-y-2">
+        <div
+          ref={progressBarRef}
+          className="h-2 bg-muted rounded-full cursor-pointer relative group"
+          onClick={handleProgressBarClick}
+          onMouseDown={handleDragStart}
+        >
+          <div
+            className="absolute h-full bg-foreground rounded-full transition-all group-hover:bg-foreground/80"
+            style={{ width: `${(progress / duration) * 100}%` }}
+          />
+          <div
+            className="absolute h-4 w-4 bg-foreground rounded-full -top-1 -ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
+            style={{ left: `${(progress / duration) * 100}%` }}
+          />
+        </div>
+        <div className="flex justify-between text-sm text-muted-foreground">
+          <span>{formatTime(progress)}</span>
+          <span>{formatTime(duration)}</span>
+        </div>
+      </div>
+
       <div className="flex flex-wrap gap-4">
         <button
           onClick={togglePlay}
