@@ -23,7 +23,7 @@ export function SortableTable() {
     {
       name: 'Human Performance',
       accuracy: 21.3,
-      tooltip: 'Average accuracy from 10 human participants each predicting outcomes for 10 randomly selected videos'
+      tooltip: 'Average accuracy from 10 human participants, each predicting outcomes for the same set of 10 randomly selected videos'
     },
     {
       name: 'Gemini 1.5 Pro',
