@@ -10,8 +10,41 @@ export default function Home() {
           Introducing the first PHL (Post-Human Level) Benchmark for testing superintelligent AI systems
         </p>
 
-        <section className="mb-12">
-          <h2>The End of Human-Comparative Benchmarks</h2>
+        {/* Table of Contents */}
+        <nav className="my-8 p-6 border rounded-lg bg-muted/50">
+          <h2 className="mt-0 mb-4">Contents</h2>
+          <ul className="space-y-2 list-none ml-0">
+            <li>
+              <a href="#motivation">1. Motivation</a>
+            </li>
+            <li>
+              <a href="#phl-definition">2. Post-Human Level (PHL) Benchmarks</a>
+              <ul className="ml-4 mt-2 space-y-1">
+                <li><a href="#information-completeness">Information Completeness</a></li>
+                <li><a href="#human-performance">Human Performance Gap</a></li>
+                <li><a href="#objective-evaluation">Objective Evaluation</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#dicebench">3. DiceBench Implementation</a>
+              <ul className="ml-4 mt-2 space-y-1">
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#dataset">Dataset Structure</a></li>
+                <li><a href="#performance">Current Performance</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#try-it">4. Try it Yourself</a>
+            </li>
+            <li>
+              <a href="#access">5. Access & Contact</a>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Motivation Section */}
+        <section id="motivation" className="mb-12">
+          <h2>Motivation</h2>
           <p>
             The AI research community has traditionally relied on human performance as the gold standard
             for evaluating AI systems. We've progressed from middle school to high school benchmarks,
@@ -28,7 +61,8 @@ export default function Home() {
           </p>
         </section>
 
-        <section className="mb-12">
+        {/* PHL Definition Section */}
+        <section id="phl-definition" className="mb-12">
           <h2>Post-Human Level (PHL) Benchmarks</h2>
           <p>
             We propose a paradigm shift in AI evaluation methodology through the introduction of
@@ -93,8 +127,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2>DiceBench: The First PHL Benchmark</h2>
+        {/* DiceBench Implementation */}
+        <section id="dicebench" className="mb-12">
+          <h2>DiceBench Implementation</h2>
           <p>
             DiceBench represents our first implementation of a PHL Benchmark. The task—predicting
             dice outcomes from partial throw videos—is specifically chosen because it meets our key
@@ -111,22 +146,28 @@ export default function Home() {
           </p>
         </section>
 
-        <section className="mb-12">
-          <h2>Methodology</h2>
+        {/* Dataset Structure */}
+        <section id="dataset" className="mb-12">
+          <h2>Dataset Structure</h2>
           <p>
-            The benchmark consists of 100 high-speed video recordings of dice throws, cut precisely two
-            bounces into each throw. The task is to predict the final outcome of each throw. The dataset
-            is divided into ten categories, each featuring different colored dice and surfaces to ensure
-            robust testing across varying conditions.
+            The benchmark consists of two parts:
           </p>
-          <p>
-            Videos were captured using a Samsung S24 under controlled conditions. Each video provides
-            sufficient frames to theoretically determine the dice's momentum, rotation, and interaction
-            with the surface, while being far too complex for human visual processing to analyze effectively.
-          </p>
+          <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+            <li>
+              A private evaluation set of 100 videos with known outcomes, used for
+              official model evaluation. These videos are split across 10 different
+              surfaces and dice colors to ensure robust testing.
+            </li>
+            <li>
+              A public example video (shown below) where researchers and visitors
+              can test their own prediction capabilities and understand the task's
+              complexity.
+            </li>
+          </ul>
         </section>
 
-        <section className="mb-12">
+        {/* Current Performance */}
+        <section id="performance" className="mb-12">
           <h2>Current Performance</h2>
           <div className="not-prose">
             <div className="border rounded-lg p-6 bg-muted/50">
@@ -156,36 +197,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mb-12">
-          <h2>Access</h2>
-          <p>
-            The evaluation set is kept private to maintain benchmark integrity. Researchers and organizations
-            interested in evaluating their models can contact us for access to the test set. We encourage
-            the AI research community to join us in developing more PHL Benchmarks as we move into an
-            era where traditional human-comparative benchmarks may no longer be sufficient.
-          </p>
-        </section>
-
-        <section className="mb-12">
-          <h2>Dataset</h2>
-          <p>
-            The benchmark consists of two parts:
-          </p>
-          <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-            <li>
-              A private evaluation set of 100 videos with known outcomes, used for
-              official model evaluation. These videos are split across 10 different
-              surfaces and dice colors to ensure robust testing.
-            </li>
-            <li>
-              A public example video (shown below) where researchers and visitors
-              can test their own prediction capabilities and understand the task's
-              complexity.
-            </li>
-          </ul>
-        </section>
-
-        <section className="mb-12">
+        {/* Try it Yourself */}
+        <section id="try-it" className="mb-12">
           <h2>Try it Yourself</h2>
           <p>
             Below is an example video that demonstrates the task. The video stops after
@@ -199,6 +212,17 @@ export default function Home() {
           <p className="text-sm text-muted-foreground mt-4">
             Note: This example is representative of the videos in the evaluation set but
             is not part of the official benchmark.
+          </p>
+        </section>
+
+        {/* Access Section */}
+        <section id="access" className="mb-12">
+          <h2>Access & Contact</h2>
+          <p>
+            The evaluation set is kept private to maintain benchmark integrity. Researchers and organizations
+            interested in evaluating their models can contact us for access to the test set. We encourage
+            the AI research community to join us in developing more PHL Benchmarks as we move into an
+            era where traditional human-comparative benchmarks may no longer be sufficient.
           </p>
         </section>
       </main>
