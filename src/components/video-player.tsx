@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 
 export function VideoPlayer() {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -29,7 +29,7 @@ export function VideoPlayer() {
     }
   }, [showTest])
 
-  const togglePlay = () => {
+  const togglePlay = useCallback(() => {
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause()
@@ -38,13 +38,13 @@ export function VideoPlayer() {
       }
       setIsPlaying(!isPlaying)
     }
-  }
+  }, [isPlaying])
 
-  const stepFrame = (forward: boolean) => {
+  const stepFrame = useCallback((forward: boolean) => {
     if (videoRef.current) {
-      videoRef.current.currentTime += forward ? 0.033 : -0.033 // Approximately 1 frame at 30fps
+      videoRef.current.currentTime += forward ? 0.033 : -0.033
     }
-  }
+  }, [])
 
   const changeSpeed = (speed: number) => {
     if (videoRef.current) {
@@ -57,6 +57,33 @@ export function VideoPlayer() {
     setGuess(value)
     setHasSubmitted(true)
   }
+
+  // Add keyboard controls
+  useEffect(() => {
+    if (!showTest) return // Only add listeners after test starts
+
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Prevent default behavior for these keys
+      if (['Space', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
+        e.preventDefault()
+      }
+
+      switch (e.code) {
+        case 'Space':
+          togglePlay()
+          break
+        case 'ArrowLeft':
+          stepFrame(false)
+          break
+        case 'ArrowRight':
+          stepFrame(true)
+          break
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [showTest, togglePlay, stepFrame]) // Include dependencies
 
   if (!showTest) {
     return (
@@ -102,22 +129,25 @@ export function VideoPlayer() {
         <button
           onClick={togglePlay}
           className="px-4 py-2 border rounded hover:bg-muted"
+          title="Press Space to play/pause"
         >
-          {isPlaying ? 'Pause' : 'Play'}
+          {isPlaying ? 'Pause (Space)' : 'Play (Space)'}
         </button>
         
         <button
           onClick={() => stepFrame(false)}
           className="px-4 py-2 border rounded hover:bg-muted"
+          title="Press Left Arrow to step backward"
         >
-          Previous Frame
+          Previous Frame (←)
         </button>
         
         <button
           onClick={() => stepFrame(true)}
           className="px-4 py-2 border rounded hover:bg-muted"
+          title="Press Right Arrow to step forward"
         >
-          Next Frame
+          Next Frame (→)
         </button>
         
         <select
