@@ -1,4 +1,5 @@
 import { VideoPlayer } from '@/components/video-player'
+import { ContactButton } from '@/components/contact-button'
 
 export default function Home() {
   return (
@@ -220,7 +221,9 @@ export default function Home() {
           <h2>Access & Contact</h2>
           <p>
             The evaluation set is kept private to maintain benchmark integrity. Researchers and organizations
-            interested in evaluating their models can contact us for access to the test set. We encourage
+            interested in evaluating their models can{' '}
+            <ContactButton />
+            {' '}for access to the test set. We encourage
             the AI research community to join us in developing more PHL Benchmarks as we move into an
             era where traditional human-comparative benchmarks may no longer be sufficient.
           </p>
