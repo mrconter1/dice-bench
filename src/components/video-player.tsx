@@ -155,10 +155,13 @@ export function VideoPlayer() {
 
   if (!showTest) {
     return (
-      <div className="flex justify-center">
+      <div className="aspect-video bg-black/5 rounded-lg border border-border min-h-[300px] flex flex-col items-center justify-center space-y-4">
+        <p className="text-muted-foreground">
+          Ready to test your prediction skills?
+        </p>
         <button
           onClick={() => setShowTest(true)}
-          className="bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90"
+          className="bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
         >
           Start Test
         </button>
@@ -168,7 +171,7 @@ export function VideoPlayer() {
 
   return (
     <div className="space-y-4">
-      <div className="relative aspect-video bg-black rounded-lg overflow-hidden border border-border min-h-[300px]">
+      <div className="relative aspect-video bg-black rounded-lg overflow-hidden border border-border">
         <video
           ref={videoRef}
           className="w-full h-full object-contain"
@@ -183,14 +186,15 @@ export function VideoPlayer() {
             console.error('Video error:', e.currentTarget.error)
             setVideoStatus('Error loading video')
           }}
-          style={{ minHeight: '300px' }}
         >
           <source src="/example.webm" type="video/webm" />
           Your browser does not support the video tag.
         </video>
         {!isLoaded && (
-          <div className="absolute top-2 left-2 text-white bg-black/50 px-2 py-1 rounded">
-            {videoStatus}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <div className="text-white px-4 py-2 rounded-full bg-black/50 backdrop-blur-sm">
+              {videoStatus}
+            </div>
           </div>
         )}
       </div>
@@ -218,10 +222,10 @@ export function VideoPlayer() {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-2">
         <button
           onClick={togglePlay}
-          className="px-4 py-2 border rounded hover:bg-muted"
+          className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
           title="Press Space to play/pause"
         >
           {isPlaying ? 'Pause (Space)' : 'Play (Space)'}
@@ -229,7 +233,7 @@ export function VideoPlayer() {
         
         <button
           onClick={() => stepFrame(false)}
-          className="px-4 py-2 border rounded hover:bg-muted"
+          className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
           title="Press Left Arrow to step backward"
         >
           Previous Frame (←)
@@ -237,7 +241,7 @@ export function VideoPlayer() {
         
         <button
           onClick={() => stepFrame(true)}
-          className="px-4 py-2 border rounded hover:bg-muted"
+          className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
           title="Press Right Arrow to step forward"
         >
           Next Frame (→)
@@ -246,7 +250,7 @@ export function VideoPlayer() {
         <select
           value={playbackRate}
           onChange={(e) => changeSpeed(Number(e.target.value))}
-          className="px-4 py-2 border rounded bg-background"
+          className="px-4 py-2 border rounded-lg bg-background hover:bg-muted transition-colors cursor-pointer"
         >
           <option value={0.25}>0.25x</option>
           <option value={0.5}>0.5x</option>
@@ -256,14 +260,14 @@ export function VideoPlayer() {
       </div>
 
       {!hasSubmitted ? (
-        <div className="mt-8">
-          <h4 className="text-lg font-semibold mb-4">What number will the die show?</h4>
-          <div className="flex flex-wrap gap-2">
+        <div className="mt-8 space-y-4">
+          <h4 className="text-lg font-semibold">What number will the die show?</h4>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
             {[1, 2, 3, 4, 5, 6].map((number) => (
               <button
                 key={number}
                 onClick={() => submitGuess(number)}
-                className="px-6 py-3 border rounded-lg hover:bg-muted"
+                className="px-6 py-4 border rounded-lg hover:bg-muted transition-colors text-lg font-medium"
               >
                 {number}
               </button>
@@ -271,8 +275,9 @@ export function VideoPlayer() {
           </div>
         </div>
       ) : (
-        <div className="mt-8 p-4 border rounded-lg bg-muted/50">
-          <p>Thank you for participating! Your guess: {guess}</p>
+        <div className="mt-8 p-6 border rounded-lg bg-muted/50 space-y-2">
+          <p className="font-medium">Thank you for participating!</p>
+          <p>Your guess: <span className="font-mono">{guess}</span></p>
           <p className="text-muted-foreground">
             The actual result will be revealed when you get access to the evaluation set.
           </p>
