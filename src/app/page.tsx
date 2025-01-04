@@ -81,20 +81,19 @@ export default function Home() {
           <h2 className="text-secondary-foreground">Motivation</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
             <p>
-              For too long, the AI research community has treated human intelligence as a 
-              &ldquo;golden standard&rdquo; for AI evaluation—a fundamental error in our approach. 
-              We&apos;ve clung to human performance as an artificial ceiling, progressing through 
-              increasingly difficult human-centric benchmarks—from middle school to PhD-level 
-              challenges. This anthropocentric focus has become not just obsolete, but 
-              potentially harmful to progress in AI evaluation.
+              For a long time, the AI research community has used human intelligence as a 
+              reference point for AI evaluation. We've progressed through increasingly complex 
+              human-centric benchmarks—from middle school to PhD-level challenges. While this 
+              approach has been valuable, we believe it's time to explore evaluation methods 
+              that go beyond human performance as the primary metric.
             </p>
             <p className="mb-0">
               Our analysis of benchmark lifespans (documented at <a href="https://h-matched.vercel.app/" 
-              className="font-medium text-accent hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">H-Matched</a>) reveals
-              a stark truth: we must abandon this notion of human intelligence as the golden standard. 
-              The rapid pace at which AI systems surpass human-level performance on these benchmarks 
-              demonstrates that our anthropocentric bias is holding us back from developing truly 
-              meaningful measures of artificial intelligence.
+              className="font-medium text-accent hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">H-Matched</a>) suggests
+              an opportunity to expand our evaluation methods. The increasing frequency with which 
+              AI systems achieve human-level performance on these benchmarks indicates that 
+              complementary approaches to AI evaluation could be beneficial for measuring and 
+              understanding artificial intelligence.
             </p>
           </div>
         </section>
