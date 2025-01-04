@@ -270,6 +270,7 @@ export function VideoPlayer() {
           controls={false}
           playsInline
           preload="auto"
+          muted
           onLoadedData={handleVideoLoaded}
           onError={(e) => {
             console.error('Video error:', e.currentTarget.error)
