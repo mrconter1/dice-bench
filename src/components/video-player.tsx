@@ -20,6 +20,7 @@ export function VideoPlayer() {
   const [shuffledVideos, setShuffledVideos] = useState<TestVideo[]>([])
   const [userGuesses, setUserGuesses] = useState<{[key: number]: number}>({})
   const [showResults, setShowResults] = useState(false)
+  const [selectedNumber, setSelectedNumber] = useState<number | null>(null)
 
   const handleVideoLoaded = () => {
     setIsLoaded(true)
@@ -63,12 +64,31 @@ export function VideoPlayer() {
   }
 
   const submitGuess = (value: number) => {
-    setGuess(value)
-    setHasSubmitted(true)
-    setUserGuesses(prev => ({
-      ...prev,
-      [shuffledVideos[currentVideoIndex].id]: value
-    }))
+    setSelectedNumber(value)
+  }
+
+  const confirmGuess = () => {
+    if (selectedNumber !== null) {
+      // Record the guess
+      setGuess(selectedNumber)
+      setUserGuesses(prev => ({
+        ...prev,
+        [shuffledVideos[currentVideoIndex].id]: selectedNumber
+      }))
+      setSelectedNumber(null)
+
+      // Immediately move to next video
+      if (currentVideoIndex < shuffledVideos.length - 1) {
+        setCurrentVideoIndex(prev => prev + 1)
+        setGuess(null)
+        setIsLoaded(false)
+        setVideoStatus('Loading...')
+        setIsPlaying(false)
+        setProgress(0)
+      } else {
+        setShowResults(true)
+      }
+    }
   }
 
   const calculateAccuracy = () => {
@@ -364,25 +384,28 @@ export function VideoPlayer() {
               <button
                 key={number}
                 onClick={() => submitGuess(number)}
-                className="px-6 py-4 border rounded-lg hover:bg-muted transition-colors text-lg font-medium"
+                className={`px-6 py-4 border rounded-lg transition-colors text-lg font-medium
+                  ${selectedNumber === number 
+                    ? 'bg-accent text-accent-foreground border-accent' 
+                    : 'hover:bg-muted'
+                  }`}
               >
                 {number}
               </button>
             ))}
           </div>
+          {selectedNumber !== null && (
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={confirmGuess}
+                className="px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"
+              >
+                {currentVideoIndex < shuffledVideos.length - 1 ? 'Submit and Continue' : 'Submit and See Results'}
+              </button>
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="mt-8 p-6 border rounded-lg bg-muted/50 space-y-4">
-          <p className="font-medium">Guess recorded!</p>
-          <p>Your guess: <span className="font-mono">{guess}</span></p>
-          <button
-            onClick={moveToNextVideo}
-            className="px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"
-          >
-            {currentVideoIndex < shuffledVideos.length - 1 ? 'Next Video' : 'See Results'}
-          </button>
-        </div>
-      )}
+      ) : null}
     </div>
   )
 } 
