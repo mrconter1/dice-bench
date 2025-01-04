@@ -49,7 +49,7 @@ export default function Home() {
             <li>
               <a href="#dicebench" className="text-primary hover:text-accent transition-colors flex items-center gap-2 group">
                 <span className="text-accent group-hover:translate-x-1 transition-transform">→</span>
-                <span>3. About DiceBench</span>
+                <span>3. DiceBench Overview</span>
               </a>
               <ul className="ml-6 mt-2 space-y-2">
                 <li><a href="#performance" className="text-primary/80 hover:text-accent transition-colors">Current Performance</a></li>
@@ -142,32 +142,26 @@ export default function Home() {
           </div>
         </section>
 
-        {/* About DiceBench Section */}
+        {/* DiceBench Overview Section */}
         <section id="dicebench" className="mb-16 scroll-mt-20">
-          <h2 className="text-secondary-foreground">About DiceBench</h2>
+          <h2 className="text-secondary-foreground">DiceBench Overview</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border border-secondary space-y-6">
-            <div className="space-y-6">
-              <h3 className="text-lg font-semibold">Private Evaluation Set</h3>
+            <div className="space-y-4">
               <p>
-                DiceBench consists of a private dataset of 100 carefully curated dice-rolling videos. Each video:
+                DiceBench consists of a <strong>private evaluation set of 100 videos</strong> and a 
+                <strong> public dataset of 10 videos</strong> available through the interactive test 
+                on this website. All videos are recorded using a handheld Galaxy S24 camera, capturing 
+                dice rolls across ten different surface types. Each sequence shows a die of varying color 
+                and material being rolled, cutting approximately one second before it comes to rest—after 
+                at least two bounces on the surface.
               </p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Shows a die being rolled on one of 10 different surfaces (wood, carpet, concrete, etc.)</li>
-                <li>Is recorded using a handheld Galaxy S24 camera in natural lighting conditions</li>
-                <li>Cuts off after exactly two bounces, providing theoretically sufficient information for prediction</li>
-                <li>Features dice of varying colors and materials to test robustness</li>
-                <li>Is paired with ground truth data of the final die outcome</li>
-              </ul>
-            </div>
-
-            <div className="space-y-6">
-              <h3 className="text-lg font-semibold">Public Dataset</h3>
               <p>
-                A public dataset of 10 videos is available through the interactive test on this website. 
-                These videos follow the same format as the private evaluation set and have been used to 
-                benchmark current vision models like GPT-4V and Gemini Pro Vision. This allows researchers 
-                to understand the task and develop their approaches before requesting access to the full 
-                evaluation set.
+                While all necessary physical information for prediction is present in the videos 
+                (momentum, rotation, surface properties), the timing makes the final outcome challenging 
+                to determine through human perception alone. The public dataset allows researchers to 
+                benchmark current vision models like <strong>GPT-4V</strong> and <strong>Gemini Pro Vision</strong> 
+                before requesting access to the full evaluation set, which is kept private to maintain 
+                benchmark integrity.
               </p>
             </div>
 
