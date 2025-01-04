@@ -52,7 +52,7 @@ export default function Home() {
                 <span>3. DiceBench Overview</span>
               </a>
               <ul className="ml-6 mt-2 space-y-2">
-                <li><a href="#performance" className="text-primary/80 hover:text-accent transition-colors">Current Performance</a></li>
+                <li><a href="#performance" className="text-primary/80 hover:text-accent transition-colors">Leaderboard</a></li>
               </ul>
             </li>
             <li>
@@ -166,7 +166,7 @@ export default function Home() {
             </div>
 
             <div id="performance" className="mt-8">
-              <h3 className="text-lg font-semibold mb-4">Current Performance</h3>
+              <h3 className="text-lg font-semibold mb-4">Leaderboard</h3>
               <div className="not-prose">
                 <SortableTable />
               </div>
