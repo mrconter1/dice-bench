@@ -106,7 +106,7 @@ export default function Home() {
           </p>
           
           <div className="grid gap-6 mt-8">
-            <div className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
+            <div id="information-completeness" className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
               <h4 className="font-bold text-primary mb-3">1. Information Completeness</h4>
               <p className="mb-0">
                 Each datapoint must contain sufficient information to theoretically achieve better
@@ -116,7 +116,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
+            <div id="human-performance" className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
               <h4 className="font-bold text-primary mb-3">2. Human Performance Gap</h4>
               <p className="mb-0">
                 Breaking free from anthropocentric bias, the benchmark must measure capabilities 
@@ -126,7 +126,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
+            <div id="objective-evaluation" className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
               <h4 className="font-bold text-primary mb-3">3. Objective Evaluation</h4>
               <p className="mb-0">
                 Each data point must have an unambiguous, verifiable correct answer, allowing for precise
@@ -137,15 +137,40 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Current Performance */}
-        <section id="performance" className="mb-16 scroll-mt-20">
-          <h2 className="text-secondary-foreground">Current Performance</h2>
-          <div className="not-prose">
-            <SortableTable />
+        {/* DiceBench Implementation Section */}
+        <section id="dicebench" className="mb-16 scroll-mt-20">
+          <h2 className="text-secondary-foreground">DiceBench Implementation</h2>
+          
+          {/* Methodology subsection */}
+          <div id="methodology" className="mb-8">
+            <h3 className="text-lg font-semibold mb-4">Methodology</h3>
+            <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
+              <p className="mb-0">
+                {/* Content to be added later */}
+              </p>
+            </div>
+          </div>
+
+          {/* Dataset Structure subsection */}
+          <div id="dataset" className="mb-8">
+            <h3 className="text-lg font-semibold mb-4">Dataset Structure</h3>
+            <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
+              <p className="mb-0">
+                {/* Content to be added later */}
+              </p>
+            </div>
+          </div>
+
+          {/* Current Performance subsection */}
+          <div id="performance" className="mb-8">
+            <h3 className="text-lg font-semibold mb-4">Current Performance</h3>
+            <div className="not-prose">
+              <SortableTable />
+            </div>
           </div>
         </section>
 
-        {/* Try it Yourself */}
+        {/* Try it Yourself section */}
         <section id="try-it" className="mb-16 scroll-mt-20">
           <h2 className="text-secondary-foreground">Try it Yourself</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border border-secondary mb-8">
