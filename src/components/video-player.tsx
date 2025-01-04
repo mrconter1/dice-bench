@@ -202,16 +202,18 @@ export function VideoPlayer() {
 
   if (!showTest) {
     return (
-      <div className="aspect-video bg-black/5 rounded-lg border border-border min-h-[300px] flex flex-col items-center justify-center space-y-4">
-        <p className="text-muted-foreground">
-          Ready to test your prediction skills?
-        </p>
-        <button
-          onClick={() => setShowTest(true)}
-          className="bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
-        >
-          Start Test ({testVideos.length} Videos)
-        </button>
+      <div className="not-prose rounded-lg overflow-hidden shadow-xl">
+        <div className="aspect-video bg-black/5 rounded-lg border border-border flex flex-col items-center justify-center space-y-4 p-4">
+          <p className="text-muted-foreground text-center">
+            Ready to test your prediction skills?
+          </p>
+          <button
+            onClick={() => setShowTest(true)}
+            className="bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+          >
+            Start Test ({testVideos.length} Videos)
+          </button>
+        </div>
       </div>
     )
   }
