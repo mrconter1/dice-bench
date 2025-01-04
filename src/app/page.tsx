@@ -68,19 +68,20 @@ export default function Home() {
           <h2 className="text-secondary-foreground">Motivation</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
             <p>
-              The AI research community has been constrained by an anthropocentric bias in its 
-              evaluation methods. We've clung to human performance as an artificial ceiling, 
-              progressing through increasingly difficult human-centric benchmarks—from middle 
-              school to PhD-level challenges. This anthropocentric focus has become not just 
-              obsolete, but potentially harmful to progress in AI evaluation.
+              For too long, the AI research community has treated human intelligence as a 
+              "golden standard" for AI evaluation—a fundamental error in our approach. 
+              We've clung to human performance as an artificial ceiling, progressing through 
+              increasingly difficult human-centric benchmarks—from middle school to PhD-level 
+              challenges. This anthropocentric focus has become not just obsolete, but 
+              potentially harmful to progress in AI evaluation.
             </p>
             <p className="mb-0">
               Our analysis of benchmark lifespans (documented at <a href="https://h-matched.vercel.app/" 
               className="font-medium text-accent hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">H-Matched</a>) reveals
-              a stark truth: we must move beyond human-centric evaluation. The rapid pace at which 
-              AI systems surpass human-level performance on these benchmarks demonstrates that our 
-              anthropocentric bias is holding us back from developing truly meaningful measures of 
-              artificial intelligence.
+              a stark truth: we must abandon this notion of human intelligence as the golden standard. 
+              The rapid pace at which AI systems surpass human-level performance on these benchmarks 
+              demonstrates that our anthropocentric bias is holding us back from developing truly 
+              meaningful measures of artificial intelligence.
             </p>
           </div>
         </section>
