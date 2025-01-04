@@ -307,7 +307,17 @@ export function VideoPlayer() {
           className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
           title="Press Space to play/pause"
         >
-          {isPlaying ? 'Pause (Space)' : 'Play (Space)'}
+          {isPlaying ? (
+            <>
+              Pause
+              <span className="hidden sm:inline"> (Space)</span>
+            </>
+          ) : (
+            <>
+              Play
+              <span className="hidden sm:inline"> (Space)</span>
+            </>
+          )}
         </button>
         
         <button
@@ -315,7 +325,8 @@ export function VideoPlayer() {
           className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
           title="Press Left Arrow to step backward"
         >
-          Previous Frame (←)
+          Previous Frame
+          <span className="hidden sm:inline"> (←)</span>
         </button>
         
         <button
@@ -323,7 +334,8 @@ export function VideoPlayer() {
           className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
           title="Press Right Arrow to step forward"
         >
-          Next Frame (→)
+          Next Frame
+          <span className="hidden sm:inline"> (→)</span>
         </button>
         
         <select
