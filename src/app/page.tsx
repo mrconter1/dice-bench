@@ -91,10 +91,10 @@ export default function Home() {
           <h2 className="text-secondary-foreground">Post-Human Level (PHL) Benchmarks</h2>
           <p className="text-lg">
             We propose Post-Human Level (PHL) Benchmarks as a paradigm shift away from 
-            anthropocentric evaluation methods. It's time to drop our ego and acknowledge 
-            that human performance is not the ultimate standard for AI capabilities. A PHL 
-            Benchmark is defined by three key criteria that deliberately move beyond 
-            human-centric metrics:
+            anthropocentric evaluation methods. By moving beyond human performance as our 
+            reference point, we can develop more meaningful standards for measuring artificial 
+            intelligence. A PHL Benchmark is defined by three key criteria that deliberately 
+            transcend traditional human-centric metrics:
           </p>
           
           <div className="grid gap-6 mt-8">
