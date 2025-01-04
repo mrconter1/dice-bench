@@ -49,11 +49,9 @@ export default function Home() {
             <li>
               <a href="#dicebench" className="text-primary hover:text-accent transition-colors flex items-center gap-2 group">
                 <span className="text-accent group-hover:translate-x-1 transition-transform">→</span>
-                <span>3. DiceBench Implementation</span>
+                <span>3. About DiceBench</span>
               </a>
               <ul className="ml-6 mt-2 space-y-2">
-                <li><a href="#methodology" className="text-primary/80 hover:text-accent transition-colors">Methodology</a></li>
-                <li><a href="#dataset" className="text-primary/80 hover:text-accent transition-colors">Dataset Structure</a></li>
                 <li><a href="#performance" className="text-primary/80 hover:text-accent transition-colors">Current Performance</a></li>
               </ul>
             </li>
@@ -144,35 +142,40 @@ export default function Home() {
           </div>
         </section>
 
-        {/* DiceBench Implementation Section */}
+        {/* About DiceBench Section */}
         <section id="dicebench" className="mb-16 scroll-mt-20">
-          <h2 className="text-secondary-foreground">DiceBench Implementation</h2>
-          
-          {/* Methodology subsection */}
-          <div id="methodology" className="mb-8">
-            <h3 className="text-lg font-semibold mb-4">Methodology</h3>
-            <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
-              <p className="mb-0">
-                {/* Content to be added later */}
+          <h2 className="text-secondary-foreground">About DiceBench</h2>
+          <div className="bg-secondary/10 p-6 rounded-lg border border-secondary space-y-6">
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold">Private Evaluation Set</h3>
+              <p>
+                DiceBench consists of a private dataset of 100 carefully curated dice-rolling videos. Each video:
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Shows a die being rolled on one of 10 different surfaces (wood, carpet, concrete, etc.)</li>
+                <li>Is recorded using a handheld Galaxy S24 camera in natural lighting conditions</li>
+                <li>Cuts off after exactly two bounces, providing theoretically sufficient information for prediction</li>
+                <li>Features dice of varying colors and materials to test robustness</li>
+                <li>Is paired with ground truth data of the final die outcome</li>
+              </ul>
+            </div>
+
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold">Public Dataset</h3>
+              <p>
+                A public dataset of 10 videos is available through the interactive test on this website. 
+                These videos follow the same format as the private evaluation set and have been used to 
+                benchmark current vision models like GPT-4V and Gemini Pro Vision. This allows researchers 
+                to understand the task and develop their approaches before requesting access to the full 
+                evaluation set.
               </p>
             </div>
-          </div>
 
-          {/* Dataset Structure subsection */}
-          <div id="dataset" className="mb-8">
-            <h3 className="text-lg font-semibold mb-4">Dataset Structure</h3>
-            <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
-              <p className="mb-0">
-                {/* Content to be added later */}
-              </p>
-            </div>
-          </div>
-
-          {/* Current Performance subsection */}
-          <div id="performance" className="mb-8">
-            <h3 className="text-lg font-semibold mb-4">Current Performance</h3>
-            <div className="not-prose">
-              <SortableTable />
+            <div id="performance" className="mt-8">
+              <h3 className="text-lg font-semibold mb-4">Current Performance</h3>
+              <div className="not-prose">
+                <SortableTable />
+              </div>
             </div>
           </div>
         </section>
