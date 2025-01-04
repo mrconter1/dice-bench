@@ -223,18 +223,6 @@ export function VideoPlayer() {
       <div className="p-8 border-2 rounded-xl bg-secondary/20 space-y-4">
         <h3 className="text-xl font-bold">Test Complete!</h3>
         <p className="text-lg">Your accuracy: {calculateAccuracy().toFixed(1)}%</p>
-        <div className="space-y-2">
-          {shuffledVideos.map((video, index) => (
-            <div key={video.id} className="flex items-center justify-between p-2 bg-background/50 rounded">
-              <span>Video {index + 1}:</span>
-              <span className="font-mono">
-                Your guess: {userGuesses[video.id]} 
-                {/* Uncomment to show correct answers */}
-                {/* (Correct: {video.outcome}) */}
-              </span>
-            </div>
-          ))}
-        </div>
         <button
           onClick={() => {
             setShowTest(false)
