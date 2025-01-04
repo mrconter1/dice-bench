@@ -19,7 +19,6 @@ export function VideoPlayer() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
   const [shuffledVideos, setShuffledVideos] = useState<TestVideo[]>([])
   const [userGuesses, setUserGuesses] = useState<{[key: number]: number}>({})
-  const [testComplete, setTestComplete] = useState(false)
   const [showResults, setShowResults] = useState(false)
 
   const handleVideoLoaded = () => {
@@ -106,7 +105,6 @@ export function VideoPlayer() {
       setIsPlaying(false)
       setProgress(0)
     } else {
-      setTestComplete(true)
       setShowResults(true)
     }
   }, [currentVideoIndex, shuffledVideos.length])
@@ -240,7 +238,6 @@ export function VideoPlayer() {
             setShowTest(false)
             setCurrentVideoIndex(0)
             setUserGuesses({})
-            setTestComplete(false)
             setShowResults(false)
           }}
           className="mt-4 px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"

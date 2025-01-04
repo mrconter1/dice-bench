@@ -77,8 +77,8 @@ export default function Home() {
           <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
             <p>
               For too long, the AI research community has treated human intelligence as a 
-              "golden standard" for AI evaluation—a fundamental error in our approach. 
-              We've clung to human performance as an artificial ceiling, progressing through 
+              &ldquo;golden standard&rdquo; for AI evaluation—a fundamental error in our approach. 
+              We&apos;ve clung to human performance as an artificial ceiling, progressing through 
               increasingly difficult human-centric benchmarks—from middle school to PhD-level 
               challenges. This anthropocentric focus has become not just obsolete, but 
               potentially harmful to progress in AI evaluation.
