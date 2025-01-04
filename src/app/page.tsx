@@ -1,6 +1,7 @@
 import { VideoPlayer } from '@/components/video-player'
 import { ContactButton } from '@/components/contact-button'
 import { SortableTable } from "@/components/sortable-table"
+import { CitationBlock } from '@/components/citation-block'
 
 export default function Home() {
   return (
@@ -66,6 +67,12 @@ export default function Home() {
               <a href="#access" className="text-primary hover:text-accent transition-colors flex items-center gap-2 group">
                 <span className="text-accent group-hover:translate-x-1 transition-transform">→</span>
                 <span>5. Access & Contact</span>
+              </a>
+            </li>
+            <li>
+              <a href="#citation" className="text-primary hover:text-accent transition-colors flex items-center gap-2 group">
+                <span className="text-accent group-hover:translate-x-1 transition-transform">→</span>
+                <span>6. Citation</span>
               </a>
             </li>
           </ul>
@@ -204,6 +211,16 @@ export default function Home() {
             </p>
           </div>
         </section>
+
+        {/* Citation Section */}
+        <section id="citation" className="mb-12 scroll-mt-20">
+          <h2 className="text-secondary-foreground">Citation</h2>
+          <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
+            <p className="mb-4">If you use DiceBench in your research, please cite our work:</p>
+            <CitationBlock />
+          </div>
+        </section>
+
       </main>
     </div>
   );
