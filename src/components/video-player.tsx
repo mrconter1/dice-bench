@@ -8,7 +8,6 @@ export function VideoPlayer() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [playbackRate, setPlaybackRate] = useState(1)
   const [showTest, setShowTest] = useState(false)
-  const [guess, setGuess] = useState<number | null>(null)
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [videoStatus, setVideoStatus] = useState<string>('Loading...')
   const [isLoaded, setIsLoaded] = useState(false)
@@ -70,7 +69,6 @@ export function VideoPlayer() {
   const confirmGuess = () => {
     if (selectedNumber !== null) {
       // Record the guess
-      setGuess(selectedNumber)
       setUserGuesses(prev => ({
         ...prev,
         [shuffledVideos[currentVideoIndex].id]: selectedNumber
@@ -80,7 +78,6 @@ export function VideoPlayer() {
       // Immediately move to next video
       if (currentVideoIndex < shuffledVideos.length - 1) {
         setCurrentVideoIndex(prev => prev + 1)
-        setGuess(null)
         setIsLoaded(false)
         setVideoStatus('Loading...')
         setIsPlaying(false)
@@ -113,21 +110,6 @@ export function VideoPlayer() {
       setShuffledVideos(shuffleVideos(testVideos))
     }
   }, [showTest])
-
-  // Reset state when moving to next video
-  const moveToNextVideo = useCallback(() => {
-    if (currentVideoIndex < shuffledVideos.length - 1) {
-      setCurrentVideoIndex(prev => prev + 1)
-      setGuess(null)
-      setHasSubmitted(false)
-      setIsLoaded(false)
-      setVideoStatus('Loading...')
-      setIsPlaying(false)
-      setProgress(0)
-    } else {
-      setShowResults(true)
-    }
-  }, [currentVideoIndex, shuffledVideos.length])
 
   // Add keyboard controls
   useEffect(() => {

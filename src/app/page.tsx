@@ -82,9 +82,9 @@ export default function Home() {
           <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
             <p>
               For a long time, the AI research community has used human intelligence as a 
-              reference point for AI evaluation. We've progressed through increasingly complex 
+              reference point for AI evaluation. We&apos;ve progressed through increasingly complex 
               human-centric benchmarks—from middle school to PhD-level challenges. While this 
-              approach has been valuable, we believe it's time to explore evaluation methods 
+              approach has been valuable, we believe it&apos;s time to explore evaluation methods 
               that go beyond human performance as the primary metric.
             </p>
             <p className="mb-0">
