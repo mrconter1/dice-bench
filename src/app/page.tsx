@@ -12,7 +12,15 @@ export default function Home() {
           </h1>
           
           <p className="text-xl font-medium text-primary/90 mb-8 max-w-2xl mx-auto">
-            Introducing the first PHL (Post-Human Level) Benchmark for testing superintelligent AI systems
+            Introducing the first PHL (Post-Human Level) Benchmark for testing superintelligent AI systems. 
+            Developed by <a 
+              href="https://midas-consulting.vercel.app" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="font-medium text-accent hover:text-primary transition-colors"
+            >
+              becose
+            </a>, an AI consultancy specializing in advanced machine learning solutions.
           </p>
         </div>
 
