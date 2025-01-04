@@ -8,7 +8,6 @@ export function VideoPlayer() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [playbackRate, setPlaybackRate] = useState(1)
   const [showTest, setShowTest] = useState(false)
-  const [hasSubmitted, setHasSubmitted] = useState(false)
   const [videoStatus, setVideoStatus] = useState<string>('Loading...')
   const [isLoaded, setIsLoaded] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -359,36 +358,34 @@ export function VideoPlayer() {
         </div>
       </div>
 
-      {!hasSubmitted ? (
-        <div className="mt-8 space-y-4">
-          <h4 className="text-lg font-semibold">What number will the die show?</h4>
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {[1, 2, 3, 4, 5, 6].map((number) => (
-              <button
-                key={number}
-                onClick={() => submitGuess(number)}
-                className={`px-6 py-4 border rounded-lg transition-colors text-lg font-medium
-                  ${selectedNumber === number 
-                    ? 'bg-accent text-accent-foreground border-accent' 
-                    : 'hover:bg-muted'
-                  }`}
-              >
-                {number}
-              </button>
-            ))}
-          </div>
-          {selectedNumber !== null && (
-            <div className="flex justify-center mt-4">
-              <button
-                onClick={confirmGuess}
-                className="px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"
-              >
-                {currentVideoIndex < shuffledVideos.length - 1 ? 'Submit and Continue' : 'Submit and See Results'}
-              </button>
-            </div>
-          )}
+      <div className="mt-8 space-y-4">
+        <h4 className="text-lg font-semibold">What number will the die show?</h4>
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+          {[1, 2, 3, 4, 5, 6].map((number) => (
+            <button
+              key={number}
+              onClick={() => submitGuess(number)}
+              className={`px-6 py-4 border rounded-lg transition-colors text-lg font-medium
+                ${selectedNumber === number 
+                  ? 'bg-accent text-accent-foreground border-accent' 
+                  : 'hover:bg-muted'
+                }`}
+            >
+              {number}
+            </button>
+          ))}
         </div>
-      ) : null}
+        {selectedNumber !== null && (
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={confirmGuess}
+              className="px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"
+            >
+              {currentVideoIndex < shuffledVideos.length - 1 ? 'Submit and Continue' : 'Submit and See Results'}
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   )
 } 
