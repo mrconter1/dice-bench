@@ -211,7 +211,7 @@ export function VideoPlayer() {
             onClick={() => setShowTest(true)}
             className="bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
           >
-            Start Test ({testVideos.length} Videos)
+            Start Test (10 Videos)
           </button>
         </div>
       </div>
