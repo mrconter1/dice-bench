@@ -158,7 +158,7 @@ export default function Home() {
                 While all necessary physical information for prediction is present in the videos 
                 (momentum, rotation, surface properties), the timing makes the final outcome challenging 
                 to determine through human perception alone. The public dataset allows researchers to 
-                benchmark current vision models like <strong>GPT-4V</strong> and <strong>Gemini Pro Vision</strong> 
+                benchmark current vision models like <strong>GPT-4V</strong> and <strong>Gemini Pro Vision</strong>{' '}
                 before requesting access to the full evaluation set, which is kept private to maintain 
                 benchmark integrity.
               </p>
