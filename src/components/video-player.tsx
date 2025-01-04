@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
+import { TestVideo, testVideos, shuffleVideos } from '@/lib/test-data'
 
 export function VideoPlayer() {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -15,6 +16,11 @@ export function VideoPlayer() {
   const [duration, setDuration] = useState(0)
   const progressBarRef = useRef<HTMLDivElement>(null)
   const isDraggingRef = useRef(false)
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
+  const [shuffledVideos, setShuffledVideos] = useState<TestVideo[]>([])
+  const [userGuesses, setUserGuesses] = useState<{[key: number]: number}>({})
+  const [testComplete, setTestComplete] = useState(false)
+  const [showResults, setShowResults] = useState(false)
 
   const handleVideoLoaded = () => {
     setIsLoaded(true)
@@ -60,7 +66,50 @@ export function VideoPlayer() {
   const submitGuess = (value: number) => {
     setGuess(value)
     setHasSubmitted(true)
+    setUserGuesses(prev => ({
+      ...prev,
+      [shuffledVideos[currentVideoIndex].id]: value
+    }))
   }
+
+  const calculateAccuracy = () => {
+    const correct = Object.entries(userGuesses).filter(([videoId, guess]) => {
+      const video = testVideos.find(v => v.id === parseInt(videoId))
+      return video && guess === video.outcome
+    }).length
+    return (correct / testVideos.length) * 100
+  }
+
+  // Modify video source to use current video
+  useEffect(() => {
+    if (videoRef.current && shuffledVideos.length > 0) {
+      videoRef.current.src = shuffledVideos[currentVideoIndex].path
+      videoRef.current.load()
+    }
+  }, [currentVideoIndex, shuffledVideos])
+
+  // Initialize shuffled videos when test starts
+  useEffect(() => {
+    if (showTest) {
+      setShuffledVideos(shuffleVideos(testVideos))
+    }
+  }, [showTest])
+
+  // Reset state when moving to next video
+  const moveToNextVideo = useCallback(() => {
+    if (currentVideoIndex < shuffledVideos.length - 1) {
+      setCurrentVideoIndex(prev => prev + 1)
+      setGuess(null)
+      setHasSubmitted(false)
+      setIsLoaded(false)
+      setVideoStatus('Loading...')
+      setIsPlaying(false)
+      setProgress(0)
+    } else {
+      setTestComplete(true)
+      setShowResults(true)
+    }
+  }, [currentVideoIndex, shuffledVideos.length])
 
   // Add keyboard controls
   useEffect(() => {
@@ -163,7 +212,40 @@ export function VideoPlayer() {
           onClick={() => setShowTest(true)}
           className="bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
         >
-          Start Test
+          Start Test ({testVideos.length} Videos)
+        </button>
+      </div>
+    )
+  }
+
+  if (showResults) {
+    return (
+      <div className="p-8 border-2 rounded-xl bg-secondary/20 space-y-4">
+        <h3 className="text-xl font-bold">Test Complete!</h3>
+        <p className="text-lg">Your accuracy: {calculateAccuracy().toFixed(1)}%</p>
+        <div className="space-y-2">
+          {shuffledVideos.map((video, index) => (
+            <div key={video.id} className="flex items-center justify-between p-2 bg-background/50 rounded">
+              <span>Video {index + 1}:</span>
+              <span className="font-mono">
+                Your guess: {userGuesses[video.id]} 
+                {/* Uncomment to show correct answers */}
+                {/* (Correct: {video.outcome}) */}
+              </span>
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={() => {
+            setShowTest(false)
+            setCurrentVideoIndex(0)
+            setUserGuesses({})
+            setTestComplete(false)
+            setShowResults(false)
+          }}
+          className="mt-4 px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"
+        >
+          Try Again
         </button>
       </div>
     )
@@ -259,6 +341,22 @@ export function VideoPlayer() {
         </select>
       </div>
 
+      {/* Add progress indicator */}
+      <div className="flex justify-between items-center text-sm text-muted-foreground">
+        <span>Video {currentVideoIndex + 1} of {testVideos.length}</span>
+        <div className="flex gap-1">
+          {shuffledVideos.map((_, idx) => (
+            <div
+              key={idx}
+              className={`w-2 h-2 rounded-full ${
+                idx === currentVideoIndex ? 'bg-accent' :
+                idx < currentVideoIndex ? 'bg-foreground' : 'bg-muted'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
       {!hasSubmitted ? (
         <div className="mt-8 space-y-4">
           <h4 className="text-lg font-semibold">What number will the die show?</h4>
@@ -275,12 +373,15 @@ export function VideoPlayer() {
           </div>
         </div>
       ) : (
-        <div className="mt-8 p-6 border rounded-lg bg-muted/50 space-y-2">
-          <p className="font-medium">Thank you for participating!</p>
+        <div className="mt-8 p-6 border rounded-lg bg-muted/50 space-y-4">
+          <p className="font-medium">Guess recorded!</p>
           <p>Your guess: <span className="font-mono">{guess}</span></p>
-          <p className="text-muted-foreground">
-            The actual result will be revealed when you get access to the evaluation set.
-          </p>
+          <button
+            onClick={moveToNextVideo}
+            className="px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"
+          >
+            {currentVideoIndex < shuffledVideos.length - 1 ? 'Next Video' : 'See Results'}
+          </button>
         </div>
       )}
     </div>
