@@ -26,12 +26,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
       <head>
         <Favicon />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased`}>
-        <div className="relative flex min-h-screen flex-col">
+      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased overflow-x-hidden`}>
+        <div className="relative flex min-h-screen flex-col overflow-x-hidden">
           <SiteHeader />
           {children}
         </div>
