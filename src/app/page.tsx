@@ -68,18 +68,19 @@ export default function Home() {
           <h2 className="text-secondary-foreground">Motivation</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
             <p>
-              The AI research community has traditionally relied on human performance as the gold standard
-              for evaluating AI systems. We've progressed from middle school to high school benchmarks,
-              then to college-level tests, and finally to PhD-level challenges. However, we're rapidly
-              approaching—or have already reached—a critical inflection point where this approach is
-              becoming obsolete.
+              The AI research community has been constrained by an anthropocentric bias in its 
+              evaluation methods. We've clung to human performance as an artificial ceiling, 
+              progressing through increasingly difficult human-centric benchmarks—from middle 
+              school to PhD-level challenges. This anthropocentric focus has become not just 
+              obsolete, but potentially harmful to progress in AI evaluation.
             </p>
             <p className="mb-0">
               Our analysis of benchmark lifespans (documented at <a href="https://h-matched.vercel.app/" 
               className="font-medium text-accent hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">H-Matched</a>) reveals
-              an accelerating trend: the time between a benchmark's release and AI systems achieving
-              human-level performance is shrinking dramatically. Even sophisticated benchmarks like ARC-AGI
-              are being solved faster than anticipated.
+              a stark truth: we must move beyond human-centric evaluation. The rapid pace at which 
+              AI systems surpass human-level performance on these benchmarks demonstrates that our 
+              anthropocentric bias is holding us back from developing truly meaningful measures of 
+              artificial intelligence.
             </p>
           </div>
         </section>
@@ -88,9 +89,11 @@ export default function Home() {
         <section id="phl-definition" className="mb-16 scroll-mt-20">
           <h2 className="text-secondary-foreground">Post-Human Level (PHL) Benchmarks</h2>
           <p className="text-lg">
-            We propose Post-Human Level (PHL) Benchmarks as a new paradigm for AI evaluation. 
-            A PHL Benchmark is defined by three key criteria that distinguish it from traditional 
-            human-comparative benchmarks:
+            We propose Post-Human Level (PHL) Benchmarks as a paradigm shift away from 
+            anthropocentric evaluation methods. It's time to drop our ego and acknowledge 
+            that human performance is not the ultimate standard for AI capabilities. A PHL 
+            Benchmark is defined by three key criteria that deliberately move beyond 
+            human-centric metrics:
           </p>
           
           <div className="grid gap-6 mt-8">
@@ -107,9 +110,10 @@ export default function Home() {
             <div className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
               <h4 className="font-bold text-primary mb-3">2. Human Performance Gap</h4>
               <p className="mb-0">
-                The benchmark must measure capabilities fundamentally disconnected from human intelligence.
-                Human performance should be demonstrably far from optimal, ensuring the benchmark remains
-                relevant long after AI systems surpass human-level performance in traditional tasks.
+                Breaking free from anthropocentric bias, the benchmark must measure capabilities 
+                that transcend human cognitive limitations. By design, human performance should 
+                be demonstrably far from optimal, challenging our assumption that human-level 
+                performance is a meaningful milestone for advanced AI systems.
               </p>
             </div>
 
