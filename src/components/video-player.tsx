@@ -21,12 +21,11 @@ export function VideoPlayer() {
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null)
 
   const handleVideoLoaded = () => {
-    setIsLoaded(true)
-    setVideoStatus('Video loaded')
-    console.log('Video dimensions:', {
-      width: videoRef.current?.videoWidth,
-      height: videoRef.current?.videoHeight
-    })
+    if (videoRef.current) {
+      setIsLoaded(true)
+      setVideoStatus('')
+      setDuration(videoRef.current.duration)
+    }
   }
 
   // Reset loading state when showing test
@@ -203,17 +202,124 @@ export function VideoPlayer() {
 
   if (!showTest) {
     return (
-      <div className="not-prose rounded-lg overflow-hidden shadow-xl">
-        <div className="aspect-video bg-black/5 rounded-lg border border-border flex flex-col items-center justify-center space-y-4 p-4">
-          <p className="text-muted-foreground text-center">
-            Ready to test your prediction skills?
-          </p>
-          <button
-            onClick={() => setShowTest(true)}
-            className="bg-foreground text-background px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+      <div className="space-y-4">
+        <div className="relative aspect-video bg-black rounded-lg overflow-hidden border border-border">
+          <video
+            ref={videoRef}
+            className="w-full h-full object-contain"
+            onEnded={() => setIsPlaying(false)}
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+            controls={false}
+            playsInline
+            preload="auto"
+            muted
+            onLoadedData={handleVideoLoaded}
+            onError={(e) => {
+              console.error('Video error:', e.currentTarget.error)
+              setVideoStatus('Error loading video')
+            }}
           >
-            Start Test (10 Videos)
+            <source src="/example.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+          {!isLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+              <div className="text-white px-4 py-2 rounded-full bg-black/50 backdrop-blur-sm">
+                {videoStatus}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Time slider */}
+        <div className="space-y-2">
+          <div
+            ref={progressBarRef}
+            className="h-2 bg-muted rounded-full cursor-pointer relative group"
+            onClick={handleProgressBarClick}
+            onMouseDown={handleDragStart}
+          >
+            <div
+              className="absolute h-full bg-foreground rounded-full transition-all group-hover:bg-foreground/80"
+              style={{ width: `${(progress / duration) * 100}%` }}
+            />
+            <div
+              className="absolute h-4 w-4 bg-foreground rounded-full -top-1 -ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
+              style={{ left: `${(progress / duration) * 100}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-sm text-muted-foreground">
+            <span>{formatTime(progress)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={togglePlay}
+            className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
+            title="Press Space to play/pause"
+          >
+            {isPlaying ? (
+              <>
+                Pause
+                <span className="hidden sm:inline"> (Space)</span>
+              </>
+            ) : (
+              <>
+                Play
+                <span className="hidden sm:inline"> (Space)</span>
+              </>
+            )}
           </button>
+          
+          <button
+            onClick={() => stepFrame(false)}
+            className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
+            title="Press Left Arrow to step backward"
+          >
+            Previous Frame
+            <span className="hidden sm:inline"> (←)</span>
+          </button>
+          
+          <button
+            onClick={() => stepFrame(true)}
+            className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
+            title="Press Right Arrow to step forward"
+          >
+            Next Frame
+            <span className="hidden sm:inline"> (→)</span>
+          </button>
+          
+          <select
+            value={playbackRate}
+            onChange={(e) => changeSpeed(Number(e.target.value))}
+            className="px-4 py-2 border rounded-lg bg-background hover:bg-muted transition-colors cursor-pointer"
+          >
+            <option value={0.25}>0.25x</option>
+            <option value={0.5}>0.5x</option>
+            <option value={1}>1x</option>
+            <option value={2}>2x</option>
+          </select>
+        </div>
+
+        <div className="mt-8 p-6 border border-border rounded-lg bg-secondary/5 space-y-4">
+          <div className="space-y-2 text-center">
+            <h3 className="text-lg font-medium text-primary">Ready to Test Your Prediction Skills?</h3>
+            <p className="text-sm text-muted-foreground">
+              Try to predict the final number shown on the die in 10 different videos. 
+              Use the controls above to analyze each throw carefully.
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={() => setShowTest(true)}
+              className="bg-foreground text-background px-6 py-2 rounded-lg hover:opacity-90 transition-opacity font-medium"
+            >
+              Start Test (10 Videos)
+            </button>
+          </div>
         </div>
       </div>
     )
