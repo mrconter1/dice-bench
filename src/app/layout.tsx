@@ -31,7 +31,7 @@ export default function RootLayout({
         <Favicon />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased overflow-x-hidden`}>
-        <div className="relative flex min-h-screen flex-col overflow-x-hidden">
+        <div className="relative flex min-h-screen flex-col overflow-x-hidden pt-16">
           <SiteHeader />
           {children}
         </div>
