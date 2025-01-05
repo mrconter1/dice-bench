@@ -22,9 +22,11 @@ export function VideoPlayer() {
 
   const handleVideoLoaded = () => {
     if (videoRef.current) {
-      setIsLoaded(true)
-      setVideoStatus('')
-      setDuration(videoRef.current.duration)
+      if (videoRef.current.readyState >= 2) {
+        setIsLoaded(true)
+        setVideoStatus('')
+        setDuration(videoRef.current.duration)
+      }
     }
   }
 
@@ -210,11 +212,12 @@ export function VideoPlayer() {
             onEnded={() => setIsPlaying(false)}
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
+            onLoadedData={handleVideoLoaded}
+            onCanPlay={handleVideoLoaded}
             controls={false}
             playsInline
             preload="auto"
             muted
-            onLoadedData={handleVideoLoaded}
             onError={(e) => {
               console.error('Video error:', e.currentTarget.error)
               setVideoStatus('Error loading video')
@@ -354,11 +357,12 @@ export function VideoPlayer() {
           onEnded={() => setIsPlaying(false)}
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
+          onLoadedData={handleVideoLoaded}
+          onCanPlay={handleVideoLoaded}
           controls={false}
           playsInline
           preload="auto"
           muted
-          onLoadedData={handleVideoLoaded}
           onError={(e) => {
             console.error('Video error:', e.currentTarget.error)
             setVideoStatus('Error loading video')
