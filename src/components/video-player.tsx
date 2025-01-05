@@ -435,7 +435,7 @@ export function VideoPlayer() {
       <div className="space-y-4">
         <div 
           ref={containerRef}
-          className="relative aspect-video bg-black rounded-lg overflow-hidden border border-border"
+          className="relative aspect-video bg-black rounded-lg overflow-hidden border-2 border-border"
         >
           <div 
             className="absolute inset-0 transition-transform duration-100 ease-out"
@@ -560,7 +560,7 @@ export function VideoPlayer() {
           </select>
         </div>
 
-        <div className="mt-8 p-6 border border-border rounded-lg bg-secondary/5 space-y-4">
+        <div className="mt-8 p-6 border-2 border-border rounded-lg bg-secondary/5 space-y-4">
           <div className="space-y-2 text-center">
             <h3 className="text-lg font-medium text-primary">Ready to Test Your Prediction Skills?</h3>
             <p className="text-sm text-muted-foreground">
@@ -605,7 +605,7 @@ export function VideoPlayer() {
     <div className="space-y-4">
       <div 
         ref={containerRef}
-        className="relative aspect-video bg-black rounded-lg overflow-hidden border border-border"
+        className="relative aspect-video bg-black rounded-lg overflow-hidden border-2 border-border"
       >
         <div 
           className="absolute inset-0 transition-transform duration-100 ease-out"
@@ -753,7 +753,7 @@ export function VideoPlayer() {
             <button
               key={number}
               onClick={() => submitGuess(number)}
-              className={`px-6 py-4 border rounded-lg transition-colors text-lg font-medium focus:outline-none
+              className={`px-6 py-4 border-2 rounded-lg transition-colors text-lg font-medium focus:outline-none
                 ${selectedNumber === number 
                   ? 'bg-accent text-accent-foreground border-accent' 
                   : 'hover:bg-muted'

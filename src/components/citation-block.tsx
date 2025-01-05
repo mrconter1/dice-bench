@@ -22,7 +22,7 @@ export function CitationBlock() {
 
   return (
     <div className="relative">
-      <pre className="font-mono text-sm p-4 bg-background/50 rounded-lg border border-secondary/50 overflow-x-auto whitespace-pre-wrap">
+      <pre className="font-mono text-sm p-4 bg-background/50 rounded-lg border-2 border-secondary/50 overflow-x-auto whitespace-pre-wrap">
         {bibtex}
       </pre>
       <button

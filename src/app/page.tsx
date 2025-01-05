@@ -79,7 +79,7 @@ export default function Home() {
         {/* Motivation Section */}
         <section id="motivation" className="mb-16 scroll-mt-20">
           <h2 className="text-secondary-foreground">Motivation</h2>
-          <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
+          <div className="bg-secondary/10 p-6 rounded-lg border-2 border-secondary">
             <p>
               Our analysis of <strong>benchmark lifespans</strong> suggests we need <strong>evaluation methods</strong>{' '}
               that can meaningfully differentiate between systems operating <strong>beyond human performance</strong>. 
@@ -114,7 +114,7 @@ export default function Home() {
           </p>
           
           <div className="grid gap-6 mt-8">
-            <div id="information-completeness" className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
+            <div id="information-completeness" className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border-2 border-secondary">
               <h4 className="font-bold text-primary mb-3">1. Information Completeness</h4>
               <p className="mb-0">
                 Each datapoint must contain sufficient information to theoretically achieve better
@@ -124,7 +124,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div id="human-performance" className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
+            <div id="human-performance" className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border-2 border-secondary">
               <h4 className="font-bold text-primary mb-3">2. Human Performance Gap</h4>
               <p className="mb-0">
                 Breaking free from anthropocentric bias, the benchmark must measure capabilities 
@@ -134,7 +134,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div id="objective-evaluation" className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border border-secondary">
+            <div id="objective-evaluation" className="p-6 rounded-lg bg-gradient-to-br from-secondary/20 to-transparent border-2 border-secondary">
               <h4 className="font-bold text-primary mb-3">3. Objective Evaluation</h4>
               <p className="mb-0">
                 Each data point must have an unambiguous, verifiable correct answer, allowing for precise
@@ -148,7 +148,7 @@ export default function Home() {
         {/* DiceBench Overview Section */}
         <section id="dicebench" className="mb-16 scroll-mt-20">
           <h2 className="text-secondary-foreground">DiceBench Overview</h2>
-          <div className="bg-secondary/10 p-6 rounded-lg border border-secondary space-y-6">
+          <div className="bg-secondary/10 p-6 rounded-lg border-2 border-secondary space-y-6">
             <div className="space-y-4">
               <p>
                 DiceBench consists of a <strong>private evaluation set of 100 videos</strong> and a 
@@ -180,7 +180,7 @@ export default function Home() {
         {/* Try it Yourself section */}
         <section id="try-it" className="mb-16 scroll-mt-20">
           <h2 className="text-secondary-foreground">Try it Yourself</h2>
-          <div className="bg-secondary/10 p-6 rounded-lg border border-secondary mb-8">
+          <div className="bg-secondary/10 p-6 rounded-lg border-2 border-secondary mb-8">
             <p className="mb-6">
               Below is an example video that demonstrates the task. The video stops after
               two bounces, and your challenge is to predict the final number shown on the die.
@@ -201,7 +201,7 @@ export default function Home() {
         {/* Access Section */}
         <section id="access" className="mb-12 scroll-mt-20">
           <h2 className="text-secondary-foreground">Access & Contact</h2>
-          <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
+          <div className="bg-secondary/10 p-6 rounded-lg border-2 border-secondary">
             <p className="mb-0">
               The evaluation set is kept private to maintain benchmark integrity. Researchers and organizations
               interested in evaluating their models can{' '}
@@ -216,7 +216,7 @@ export default function Home() {
         {/* Citation Section */}
         <section id="citation" className="mb-12 scroll-mt-20">
           <h2 className="text-secondary-foreground">Citation</h2>
-          <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
+          <div className="bg-secondary/10 p-6 rounded-lg border-2 border-secondary">
             <p className="mb-4">If you use DiceBench in your research, please cite our work:</p>
             <CitationBlock />
           </div>

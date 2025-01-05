@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export function SiteHeader() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-primary/20 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/40">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b-2 border-primary/20 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/40">
       <div className="container flex h-16 items-center">
         <Link 
           href="/" 
