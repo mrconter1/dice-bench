@@ -18,6 +18,43 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DiceBench | Post-Human Level Benchmark",
   description: "A post-human level benchmark for testing superintelligent AI systems through dice prediction",
+  keywords: ["AI benchmark", "superintelligent AI", "dice prediction", "AI testing", "post-human level AI"],
+  authors: [{ name: "DiceBench Team" }],
+  openGraph: {
+    title: "DiceBench | Post-Human Level Benchmark",
+    description: "A post-human level benchmark for testing superintelligent AI systems through dice prediction",
+    type: "website",
+    locale: "en_US",
+    siteName: "DiceBench",
+    images: [
+      {
+        url: "/og-image.png", // You'll need to add this image to your public folder
+        width: 1200,
+        height: 630,
+        alt: "DiceBench - Post-Human Level Benchmark",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DiceBench | Post-Human Level Benchmark",
+    description: "A post-human level benchmark for testing superintelligent AI systems through dice prediction",
+    images: ["/og-image.png"], // Same image as OpenGraph
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "your-google-site-verification", // You'll need to add this from Google Search Console
+  },
 };
 
 export default function RootLayout({
