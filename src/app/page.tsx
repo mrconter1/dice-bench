@@ -86,7 +86,9 @@ export default function Home() {
               Just as humans can intuitively predict the trajectory of moving vehicles—a task that would be nearly 
               impossible for simpler animals—we expect that more advanced AI systems should demonstrate{' '}
               <strong>increasingly accurate predictions</strong> of complex physical systems like dice rolls, even 
-              when humans cannot. This creates an opportunity to measure intelligence at levels{' '}
+              when humans cannot. This limitation persists even when humans are given unlimited time to analyze 
+              the video data, suggesting a fundamental cognitive rather than perceptual constraint. This creates 
+              an opportunity to measure intelligence at levels{' '}
               <strong>far above human capability</strong>, rather than limiting ourselves to human-level intelligence as a ceiling.
             </p>
             <p className="mb-0">
