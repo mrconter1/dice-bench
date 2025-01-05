@@ -81,13 +81,13 @@ export default function Home() {
           <h2 className="text-secondary-foreground">Motivation</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
             <p>
-              Our analysis of <strong>benchmark lifespans</strong> suggests we need <strong>evaluation methods</strong> 
+              Our analysis of <strong>benchmark lifespans</strong> suggests we need <strong>evaluation methods</strong>{' '}
               that can meaningfully differentiate between systems operating <strong>beyond human performance</strong>. 
               Just as humans can intuitively predict the trajectory of moving vehicles—a task that would be nearly 
               impossible for simpler animals—we expect that more advanced AI systems should demonstrate{' '}
               <strong>increasingly accurate predictions</strong> of complex physical systems like dice rolls, even 
-              when humans cannot. This creates an opportunity to measure intelligence across a{' '}
-              <strong>broader spectrum</strong>, rather than limiting ourselves to human-level intelligence as a ceiling.
+              when humans cannot. This creates an opportunity to measure intelligence at levels{' '}
+              <strong>far above human capability</strong>, rather than limiting ourselves to human-level intelligence as a ceiling.
             </p>
             <p className="mb-0">
               Our analysis of benchmark lifespans (documented at <a href="https://h-matched.vercel.app/" 
