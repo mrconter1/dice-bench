@@ -146,8 +146,6 @@ export function VideoPlayer() {
 
   // Add keyboard controls
   useEffect(() => {
-    if (!showTest) return // Only add listeners after test starts
-
     const handleKeyPress = (e: KeyboardEvent) => {
       // Prevent default behavior for these keys
       if (['Space', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
@@ -169,7 +167,7 @@ export function VideoPlayer() {
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [showTest, togglePlay, stepFrame]) // Include dependencies
+  }, [togglePlay, stepFrame]) // Remove showTest from dependencies
 
   // Add time update handler
   const handleTimeUpdate = () => {
@@ -488,7 +486,7 @@ export function VideoPlayer() {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={togglePlay}
-            className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
+            className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors focus:outline-none"
             title="Press Space to play/pause"
           >
             {isPlaying ? (
@@ -506,7 +504,7 @@ export function VideoPlayer() {
           
           <button
             onClick={() => stepFrame(false)}
-            className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
+            className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors focus:outline-none"
             title="Press Left Arrow to step backward"
           >
             Previous Frame
@@ -515,7 +513,7 @@ export function VideoPlayer() {
           
           <button
             onClick={() => stepFrame(true)}
-            className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
+            className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors focus:outline-none"
             title="Press Right Arrow to step forward"
           >
             Next Frame
@@ -567,7 +565,7 @@ export function VideoPlayer() {
             setUserGuesses({})
             setShowResults(false)
           }}
-          className="mt-4 px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"
+          className="mt-4 px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity focus:outline-none"
         >
           Try Again
         </button>
@@ -658,7 +656,7 @@ export function VideoPlayer() {
       <div className="flex flex-wrap gap-2">
         <button
           onClick={togglePlay}
-          className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
+          className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors focus:outline-none"
           title="Press Space to play/pause"
         >
           {isPlaying ? (
@@ -676,7 +674,7 @@ export function VideoPlayer() {
         
         <button
           onClick={() => stepFrame(false)}
-          className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
+          className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors focus:outline-none"
           title="Press Left Arrow to step backward"
         >
           Previous Frame
@@ -685,7 +683,7 @@ export function VideoPlayer() {
         
         <button
           onClick={() => stepFrame(true)}
-          className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors"
+          className="px-4 py-2 border rounded-lg hover:bg-muted transition-colors focus:outline-none"
           title="Press Right Arrow to step forward"
         >
           Next Frame
@@ -727,7 +725,7 @@ export function VideoPlayer() {
             <button
               key={number}
               onClick={() => submitGuess(number)}
-              className={`px-6 py-4 border rounded-lg transition-colors text-lg font-medium
+              className={`px-6 py-4 border rounded-lg transition-colors text-lg font-medium focus:outline-none
                 ${selectedNumber === number 
                   ? 'bg-accent text-accent-foreground border-accent' 
                   : 'hover:bg-muted'
@@ -741,7 +739,7 @@ export function VideoPlayer() {
           <div className="flex justify-center mt-4">
             <button
               onClick={confirmGuess}
-              className="px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"
+              className="px-6 py-3 bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity focus:outline-none"
             >
               {currentVideoIndex < shuffledVideos.length - 1 ? 'Submit and Continue' : 'Submit and See Results'}
             </button>
