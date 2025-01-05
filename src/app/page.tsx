@@ -204,7 +204,7 @@ export default function Home() {
               The evaluation set is kept private to maintain benchmark integrity. Researchers and organizations
               interested in evaluating their models can{' '}
               <ContactButton />
-              {' '}for access to the test set. We encourage
+              {' '}for access to the private dataset. We encourage
               the AI research community to join us in developing more PHL Benchmarks as we move into an
               era where traditional human-comparative benchmarks may no longer be sufficient.
             </p>
