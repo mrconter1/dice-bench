@@ -181,7 +181,8 @@ export default function Home() {
               Below is an example video that demonstrates the task. The video stops after
               two bounces, and your challenge is to predict the final number shown on the die.
               You can use the controls to play, pause, step through frames, and adjust playback
-              speed.
+              speed. 
+              You can also zoom in and pan around the video using your mouse wheel or pinch gestures on mobile.
             </p>
             <div className="not-prose rounded-lg overflow-hidden shadow-xl">
               <VideoPlayer />
