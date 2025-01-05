@@ -26,6 +26,33 @@ export function VideoPlayer() {
   const containerRef = useRef<HTMLDivElement>(null)
   const lastDistance = useRef<number | null>(null)
 
+  const getRelativePosition = (e: WheelEvent | TouchEvent | MouseEvent) => {
+    if (!containerRef.current) return { x: 0.5, y: 0.5 }
+    
+    const rect = containerRef.current.getBoundingClientRect()
+    let x, y
+    
+    if ('touches' in e && e.touches.length === 2) {
+      // For pinch zoom
+      x = ((e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left) / rect.width
+      y = ((e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top) / rect.height
+    } else if ('clientX' in e) {
+      // For mouse wheel
+      x = (e.clientX - rect.left) / rect.width
+      y = (e.clientY - rect.top) / rect.height
+    } else {
+      // Fallback to center
+      x = 0.5
+      y = 0.5
+    }
+    
+    // Ensure values are within bounds
+    return {
+      x: Math.max(0, Math.min(1, x)),
+      y: Math.max(0, Math.min(1, y))
+    }
+  }
+
   const handleVideoLoaded = () => {
     if (videoRef.current) {
       if (videoRef.current.readyState > 0) {
@@ -210,9 +237,35 @@ export function VideoPlayer() {
 
   const handleWheel = (e: WheelEvent) => {
     e.preventDefault()
+    if (!containerRef.current) return
+
     const delta = -e.deltaY
-    const newScale = Math.max(1, Math.min(4, scale + (delta > 0 ? 0.1 : -0.1)))
-    setScale(newScale)
+    const zoomFactor = 0.1
+    const newScale = Math.max(1, Math.min(4, scale + (delta > 0 ? zoomFactor : -zoomFactor)))
+    
+    if (newScale !== scale) {
+      const { x: relativeX, y: relativeY } = getRelativePosition(e)
+      const containerWidth = containerRef.current.offsetWidth
+      const containerHeight = containerRef.current.offsetHeight
+      
+      // Calculate how much the scale is changing
+      const scaleDiff = newScale - scale
+      
+      // Calculate new position to keep the cursor point fixed
+      const newPosition = {
+        x: position.x - (scaleDiff * containerWidth * relativeX),
+        y: position.y - (scaleDiff * containerHeight * relativeY)
+      }
+      
+      // Apply bounds
+      const boundedPosition = {
+        x: Math.min(Math.max(newPosition.x, (1 - newScale) * containerWidth), 0),
+        y: Math.min(Math.max(newPosition.y, (1 - newScale) * containerHeight), 0)
+      }
+      
+      setPosition(boundedPosition)
+      setScale(newScale)
+    }
   }
 
   const handleTouchStart = (e: TouchEvent) => {
@@ -230,6 +283,8 @@ export function VideoPlayer() {
   const handleTouchMove = (e: TouchEvent) => {
     if (e.touches.length === 2 && lastDistance.current !== null) {
       e.preventDefault()
+      if (!containerRef.current) return
+
       const touch1 = e.touches[0]
       const touch2 = e.touches[1]
       const newDistance = Math.hypot(
@@ -238,8 +293,33 @@ export function VideoPlayer() {
       )
       
       const delta = newDistance - lastDistance.current
-      const newScale = Math.max(1, Math.min(4, scale + delta * 0.01))
-      setScale(newScale)
+      const zoomFactor = 0.01
+      const newScale = Math.max(1, Math.min(4, scale + delta * zoomFactor))
+      
+      if (newScale !== scale) {
+        const { x: relativeX, y: relativeY } = getRelativePosition(e)
+        const containerWidth = containerRef.current.offsetWidth
+        const containerHeight = containerRef.current.offsetHeight
+        
+        // Calculate how much the scale is changing
+        const scaleDiff = newScale - scale
+        
+        // Calculate new position to keep the pinch center fixed
+        const newPosition = {
+          x: position.x - (scaleDiff * containerWidth * relativeX),
+          y: position.y - (scaleDiff * containerHeight * relativeY)
+        }
+        
+        // Apply bounds
+        const boundedPosition = {
+          x: Math.min(Math.max(newPosition.x, (1 - newScale) * containerWidth), 0),
+          y: Math.min(Math.max(newPosition.y, (1 - newScale) * containerHeight), 0)
+        }
+        
+        setPosition(boundedPosition)
+        setScale(newScale)
+      }
+      
       lastDistance.current = newDistance
     }
   }
