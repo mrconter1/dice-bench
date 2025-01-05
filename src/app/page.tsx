@@ -9,7 +9,7 @@ export default function Home() {
       <main className="prose">
         <div className="space-y-4 text-center mb-16">
           <h1 className="mb-4">
-            <div className="text-6xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-300% bg-clip-text text-transparent animate-gradient mb-2">
+            <div className="text-6xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent mb-2">
               DiceBench
             </div>
             <div className="text-3xl text-primary/80">
