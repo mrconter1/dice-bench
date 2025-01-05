@@ -21,7 +21,7 @@ export default function Home() {
               className="font-medium text-accent hover:text-primary transition-colors"
             >
               becose
-            </a>, an AI consultancy specializing in advanced machine learning solutions.
+            </a>.
           </p>
         </div>
 
