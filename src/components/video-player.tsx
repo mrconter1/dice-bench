@@ -291,8 +291,45 @@ export function VideoPlayer() {
 
   const handleTouchMove = (e: TouchEvent) => {
     if (e.touches.length === 2 && lastDistance.current !== null) {
-      // Handle pinch zoom (existing code)
-      // ...
+      e.preventDefault()
+      if (!containerRef.current) return
+
+      const touch1 = e.touches[0]
+      const touch2 = e.touches[1]
+      const newDistance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      )
+      
+      const delta = newDistance - lastDistance.current
+      const zoomFactor = 0.01
+      const newScale = Math.max(1, Math.min(4, scale + delta * zoomFactor))
+      
+      if (newScale !== scale) {
+        const { x: relativeX, y: relativeY } = getRelativePosition(e)
+        const containerWidth = containerRef.current.offsetWidth
+        const containerHeight = containerRef.current.offsetHeight
+        
+        // Calculate how much the scale is changing
+        const scaleDiff = newScale - scale
+        
+        // Calculate new position to keep the pinch center fixed
+        const newPosition = {
+          x: position.x - (scaleDiff * containerWidth * relativeX),
+          y: position.y - (scaleDiff * containerHeight * relativeY)
+        }
+        
+        // Apply bounds
+        const boundedPosition = {
+          x: Math.min(Math.max(newPosition.x, (1 - newScale) * containerWidth), 0),
+          y: Math.min(Math.max(newPosition.y, (1 - newScale) * containerHeight), 0)
+        }
+        
+        setPosition(boundedPosition)
+        setScale(newScale)
+      }
+      
+      lastDistance.current = newDistance
     } else if (e.touches.length === 1 && touchPanning && scale > 1 && lastTouchRef.current) {
       // Handle panning
       e.preventDefault()
