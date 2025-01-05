@@ -22,17 +22,17 @@ export function SortableTable() {
     },
     {
       name: 'Human Performance',
-      accuracy: 21.3,
+      accuracy: -1,
       tooltip: 'Average accuracy from 10 human participants, each predicting outcomes for the same set of 10 randomly selected videos'
     },
     {
       name: 'Gemini 1.5 Pro',
-      accuracy: 19.8,
+      accuracy: -2,
       tooltip: 'Performance of Google\'s Gemini 1.5 Pro model on the test set'
     },
     {
       name: 'GPT-4V',
-      accuracy: 18.2,
+      accuracy: -3,
       tooltip: 'Performance of OpenAI\'s GPT-4V model on the test set'
     }
   ]
@@ -153,7 +153,12 @@ export function SortableTable() {
                   </div>
                 </div>
               </td>
-              <td className="text-right font-mono text-accent">{item.accuracy.toFixed(1)}%</td>
+              <td className="text-right font-mono text-accent">
+                {item.accuracy === -1 ? 'X%' :
+                 item.accuracy === -2 ? 'Y%' :
+                 item.accuracy === -3 ? 'Z%' :
+                 `${item.accuracy.toFixed(1)}%`}
+              </td>
             </tr>
           ))}
         </tbody>
