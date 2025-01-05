@@ -300,10 +300,10 @@ export function VideoPlayer() {
             onChange={(e) => changeSpeed(Number(e.target.value))}
             className="px-4 py-2 border rounded-lg bg-background hover:bg-muted transition-colors cursor-pointer"
           >
+            <option value={0.1}>0.1x</option>
             <option value={0.25}>0.25x</option>
             <option value={0.5}>0.5x</option>
             <option value={1}>1x</option>
-            <option value={2}>2x</option>
           </select>
         </div>
 
@@ -445,10 +445,10 @@ export function VideoPlayer() {
           onChange={(e) => changeSpeed(Number(e.target.value))}
           className="px-4 py-2 border rounded-lg bg-background hover:bg-muted transition-colors cursor-pointer"
         >
+          <option value={0.1}>0.1x</option>
           <option value={0.25}>0.25x</option>
           <option value={0.5}>0.5x</option>
           <option value={1}>1x</option>
-          <option value={2}>2x</option>
         </select>
       </div>
 
