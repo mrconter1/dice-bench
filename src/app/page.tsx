@@ -81,11 +81,15 @@ export default function Home() {
           <h2 className="text-secondary-foreground">Motivation</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border border-secondary">
             <p>
-              For a long time, the AI research community has used human intelligence as a 
-              reference point for AI evaluation. We&apos;ve progressed through increasingly complex 
-              human-centric benchmarks—from middle school to PhD-level challenges. While this 
-              approach has been valuable, we believe it&apos;s time to explore evaluation methods 
-              that go beyond human performance as the primary metric.
+              Our analysis of benchmark lifespans suggests we need evaluation methods 
+              that can meaningfully differentiate between systems operating beyond 
+              human performance. Just as humans can intuitively predict the trajectory 
+              of moving vehicles—a task that would be nearly impossible for simpler 
+              animals—we expect that more advanced AI systems should demonstrate 
+              increasingly accurate predictions of complex physical systems like dice 
+              rolls, even when humans cannot. This creates an opportunity to measure 
+              intelligence across a broader spectrum, rather than limiting ourselves 
+              to human-level intelligence as a ceiling.
             </p>
             <p className="mb-0">
               Our analysis of benchmark lifespans (documented at <a href="https://h-matched.vercel.app/" 
