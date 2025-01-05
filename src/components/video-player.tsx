@@ -25,6 +25,8 @@ export function VideoPlayer() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
   const lastDistance = useRef<number | null>(null)
+  const [touchPanning, setTouchPanning] = useState(false)
+  const lastTouchRef = useRef<{ x: number; y: number } | null>(null)
 
   const getRelativePosition = (e: WheelEvent | TouchEvent | MouseEvent) => {
     if (!containerRef.current) return { x: 0.5, y: 0.5 }
@@ -268,6 +270,7 @@ export function VideoPlayer() {
 
   const handleTouchStart = (e: TouchEvent) => {
     if (e.touches.length === 2) {
+      // Handle pinch zoom (existing code)
       e.preventDefault()
       const touch1 = e.touches[0]
       const touch2 = e.touches[1]
@@ -275,55 +278,41 @@ export function VideoPlayer() {
         touch2.clientX - touch1.clientX,
         touch2.clientY - touch1.clientY
       )
+    } else if (e.touches.length === 1 && scale > 1) {
+      // Start panning with single touch when zoomed
+      e.preventDefault()
+      setTouchPanning(true)
+      lastTouchRef.current = {
+        x: e.touches[0].clientX - position.x,
+        y: e.touches[0].clientY - position.y
+      }
     }
   }
 
   const handleTouchMove = (e: TouchEvent) => {
     if (e.touches.length === 2 && lastDistance.current !== null) {
+      // Handle pinch zoom (existing code)
+      // ...
+    } else if (e.touches.length === 1 && touchPanning && scale > 1 && lastTouchRef.current) {
+      // Handle panning
       e.preventDefault()
-      if (!containerRef.current) return
-
-      const touch1 = e.touches[0]
-      const touch2 = e.touches[1]
-      const newDistance = Math.hypot(
-        touch2.clientX - touch1.clientX,
-        touch2.clientY - touch1.clientY
-      )
+      const newX = e.touches[0].clientX - lastTouchRef.current.x
+      const newY = e.touches[0].clientY - lastTouchRef.current.y
       
-      const delta = newDistance - lastDistance.current
-      const zoomFactor = 0.01
-      const newScale = Math.max(1, Math.min(4, scale + delta * zoomFactor))
-      
-      if (newScale !== scale) {
-        const { x: relativeX, y: relativeY } = getRelativePosition(e)
-        const containerWidth = containerRef.current.offsetWidth
-        const containerHeight = containerRef.current.offsetHeight
-        
-        // Calculate how much the scale is changing
-        const scaleDiff = newScale - scale
-        
-        // Calculate new position to keep the pinch center fixed
-        const newPosition = {
-          x: position.x - (scaleDiff * containerWidth * relativeX),
-          y: position.y - (scaleDiff * containerHeight * relativeY)
-        }
-        
-        // Apply bounds
-        const boundedPosition = {
-          x: Math.min(Math.max(newPosition.x, (1 - newScale) * containerWidth), 0),
-          y: Math.min(Math.max(newPosition.y, (1 - newScale) * containerHeight), 0)
-        }
-        
-        setPosition(boundedPosition)
-        setScale(newScale)
+      // Apply bounds
+      const bounds = {
+        x: Math.min(Math.max(newX, (1 - scale) * containerRef.current!.offsetWidth), 0),
+        y: Math.min(Math.max(newY, (1 - scale) * containerRef.current!.offsetHeight), 0)
       }
       
-      lastDistance.current = newDistance
+      setPosition(bounds)
     }
   }
 
   const handleTouchEnd = () => {
     lastDistance.current = null
+    setTouchPanning(false)
+    lastTouchRef.current = null
   }
 
   useEffect(() => {
@@ -333,12 +322,14 @@ export function VideoPlayer() {
       container.addEventListener('touchstart', handleTouchStart, { passive: false })
       container.addEventListener('touchmove', handleTouchMove, { passive: false })
       container.addEventListener('touchend', handleTouchEnd)
+      container.addEventListener('touchcancel', handleTouchEnd)
       
       return () => {
         container.removeEventListener('wheel', handleWheel)
         container.removeEventListener('touchstart', handleTouchStart)
         container.removeEventListener('touchmove', handleTouchMove)
         container.removeEventListener('touchend', handleTouchEnd)
+        container.removeEventListener('touchcancel', handleTouchEnd)
       }
     }
   }, [scale])
