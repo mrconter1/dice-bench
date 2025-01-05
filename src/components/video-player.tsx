@@ -9,7 +9,7 @@ export function VideoPlayer() {
   const [playbackRate, setPlaybackRate] = useState(1)
   const [showTest, setShowTest] = useState(false)
   const [videoStatus, setVideoStatus] = useState<string>('Loading...')
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(true)
   const [progress, setProgress] = useState(0)
   const [duration, setDuration] = useState(0)
   const progressBarRef = useRef<HTMLDivElement>(null)
@@ -19,10 +19,16 @@ export function VideoPlayer() {
   const [userGuesses, setUserGuesses] = useState<{[key: number]: number}>({})
   const [showResults, setShowResults] = useState(false)
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null)
+  const [scale, setScale] = useState(1)
+  const [isDragging, setIsDragging] = useState(false)
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const containerRef = useRef<HTMLDivElement>(null)
+  const lastDistance = useRef<number | null>(null)
 
   const handleVideoLoaded = () => {
     if (videoRef.current) {
-      if (videoRef.current.readyState >= 2) {
+      if (videoRef.current.readyState > 0) {
         setIsLoaded(true)
         setVideoStatus('')
         setDuration(videoRef.current.duration)
@@ -202,36 +208,177 @@ export function VideoPlayer() {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`
   }
 
+  const handleWheel = (e: WheelEvent) => {
+    e.preventDefault()
+    const delta = -e.deltaY
+    const newScale = Math.max(1, Math.min(4, scale + (delta > 0 ? 0.1 : -0.1)))
+    setScale(newScale)
+  }
+
+  const handleTouchStart = (e: TouchEvent) => {
+    if (e.touches.length === 2) {
+      e.preventDefault()
+      const touch1 = e.touches[0]
+      const touch2 = e.touches[1]
+      lastDistance.current = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      )
+    }
+  }
+
+  const handleTouchMove = (e: TouchEvent) => {
+    if (e.touches.length === 2 && lastDistance.current !== null) {
+      e.preventDefault()
+      const touch1 = e.touches[0]
+      const touch2 = e.touches[1]
+      const newDistance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      )
+      
+      const delta = newDistance - lastDistance.current
+      const newScale = Math.max(1, Math.min(4, scale + delta * 0.01))
+      setScale(newScale)
+      lastDistance.current = newDistance
+    }
+  }
+
+  const handleTouchEnd = () => {
+    lastDistance.current = null
+  }
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (container) {
+      container.addEventListener('wheel', handleWheel, { passive: false })
+      container.addEventListener('touchstart', handleTouchStart, { passive: false })
+      container.addEventListener('touchmove', handleTouchMove, { passive: false })
+      container.addEventListener('touchend', handleTouchEnd)
+      
+      return () => {
+        container.removeEventListener('wheel', handleWheel)
+        container.removeEventListener('touchstart', handleTouchStart)
+        container.removeEventListener('touchmove', handleTouchMove)
+        container.removeEventListener('touchend', handleTouchEnd)
+      }
+    }
+  }, [scale])
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (scale > 1) {
+      setIsDragging(true)
+      setDragStart({ x: e.clientX - position.x, y: e.clientY - position.y })
+    }
+  }
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (isDragging && scale > 1) {
+      const newX = e.clientX - dragStart.x
+      const newY = e.clientY - dragStart.y
+      
+      // Calculate bounds to prevent dragging outside visible area
+      const bounds = {
+        x: Math.min(Math.max(newX, (1 - scale) * containerRef.current!.offsetWidth), 0),
+        y: Math.min(Math.max(newY, (1 - scale) * containerRef.current!.offsetHeight), 0)
+      }
+      
+      setPosition(bounds)
+    }
+  }, [isDragging, scale, dragStart])
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false)
+  }, [])
+
+  // Add this useEffect for mouse move/up listeners
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener('mousemove', handleMouseMove)
+      window.addEventListener('mouseup', handleMouseUp)
+    }
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [isDragging, handleMouseMove, handleMouseUp])
+
+  const resetZoom = () => {
+    setScale(1)
+    setPosition({ x: 0, y: 0 })
+  }
+
+  // Add useEffect to handle initial video loading
+  useEffect(() => {
+    if (videoRef.current) {
+      // If video already has data when mounted, mark as loaded
+      if (videoRef.current.readyState > 0) {
+        setIsLoaded(true)
+        setVideoStatus('')
+        setDuration(videoRef.current.duration)
+      } else {
+        // Only show loading if video actually needs to load
+        setIsLoaded(false)
+        setVideoStatus('Loading...')
+      }
+    }
+  }, [])
+
   if (!showTest) {
     return (
       <div className="space-y-4">
-        <div className="relative aspect-video bg-black rounded-lg overflow-hidden border border-border">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-contain"
-            onEnded={() => setIsPlaying(false)}
-            onTimeUpdate={handleTimeUpdate}
-            onLoadedMetadata={handleLoadedMetadata}
-            onLoadedData={handleVideoLoaded}
-            onCanPlay={handleVideoLoaded}
-            controls={false}
-            playsInline
-            preload="auto"
-            muted
-            onError={(e) => {
-              console.error('Video error:', e.currentTarget.error)
-              setVideoStatus('Error loading video')
+        <div 
+          ref={containerRef}
+          className="relative aspect-video bg-black rounded-lg overflow-hidden border border-border"
+        >
+          <div 
+            className="absolute inset-0 transition-transform duration-100 ease-out"
+            style={{ 
+              transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
+              cursor: scale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default',
+              transformOrigin: '0 0'
             }}
+            onMouseDown={handleMouseDown}
           >
-            <source src="/example.webm" type="video/webm" />
-            Your browser does not support the video tag.
-          </video>
-          {!isLoaded && (
+            <video
+              ref={videoRef}
+              className="w-full h-full object-contain"
+              onEnded={() => setIsPlaying(false)}
+              onTimeUpdate={handleTimeUpdate}
+              onLoadedMetadata={handleLoadedMetadata}
+              onLoadedData={handleVideoLoaded}
+              onCanPlay={handleVideoLoaded}
+              onCanPlayThrough={() => {
+                setIsLoaded(true)
+                setVideoStatus('')
+              }}
+              controls={false}
+              playsInline
+              preload="auto"
+              muted
+              onError={(e) => {
+                console.error('Video error:', e.currentTarget.error)
+                setVideoStatus('Error loading video')
+              }}
+            >
+              <source src="/example.webm" type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          {!isLoaded && videoStatus && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/50">
               <div className="text-white px-4 py-2 rounded-full bg-black/50 backdrop-blur-sm">
                 {videoStatus}
               </div>
             </div>
+          )}
+          {scale > 1 && (
+            <button
+              onClick={resetZoom}
+              className="absolute top-2 right-2 px-2 py-1 bg-background/80 backdrop-blur-sm text-foreground text-sm rounded hover:bg-background/90 transition-colors"
+            >
+              Reset Zoom
+            </button>
           )}
         </div>
 
@@ -350,33 +497,58 @@ export function VideoPlayer() {
 
   return (
     <div className="space-y-4">
-      <div className="relative aspect-video bg-black rounded-lg overflow-hidden border border-border">
-        <video
-          ref={videoRef}
-          className="w-full h-full object-contain"
-          onEnded={() => setIsPlaying(false)}
-          onTimeUpdate={handleTimeUpdate}
-          onLoadedMetadata={handleLoadedMetadata}
-          onLoadedData={handleVideoLoaded}
-          onCanPlay={handleVideoLoaded}
-          controls={false}
-          playsInline
-          preload="auto"
-          muted
-          onError={(e) => {
-            console.error('Video error:', e.currentTarget.error)
-            setVideoStatus('Error loading video')
+      <div 
+        ref={containerRef}
+        className="relative aspect-video bg-black rounded-lg overflow-hidden border border-border"
+      >
+        <div 
+          className="absolute inset-0 transition-transform duration-100 ease-out"
+          style={{ 
+            transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
+            cursor: scale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default',
+            transformOrigin: '0 0'
           }}
+          onMouseDown={handleMouseDown}
         >
-          <source src="/example.webm" type="video/webm" />
-          Your browser does not support the video tag.
-        </video>
-        {!isLoaded && (
+          <video
+            ref={videoRef}
+            className="w-full h-full object-contain"
+            onEnded={() => setIsPlaying(false)}
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+            onLoadedData={handleVideoLoaded}
+            onCanPlay={handleVideoLoaded}
+            onCanPlayThrough={() => {
+              setIsLoaded(true)
+              setVideoStatus('')
+            }}
+            controls={false}
+            playsInline
+            preload="auto"
+            muted
+            onError={(e) => {
+              console.error('Video error:', e.currentTarget.error)
+              setVideoStatus('Error loading video')
+            }}
+          >
+            <source src="/example.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        {!isLoaded && videoStatus && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50">
             <div className="text-white px-4 py-2 rounded-full bg-black/50 backdrop-blur-sm">
               {videoStatus}
             </div>
           </div>
+        )}
+        {scale > 1 && (
+          <button
+            onClick={resetZoom}
+            className="absolute top-2 right-2 px-2 py-1 bg-background/80 backdrop-blur-sm text-foreground text-sm rounded hover:bg-background/90 transition-colors"
+          >
+            Reset Zoom
+          </button>
         )}
       </div>
       
