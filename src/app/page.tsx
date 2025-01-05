@@ -8,8 +8,13 @@ export default function Home() {
     <div className="container mx-auto px-4 py-12 max-w-3xl">
       <main className="prose">
         <div className="space-y-4 text-center mb-16">
-          <h1 className="mb-4 bg-gradient-to-r from-primary via-accent to-primary bg-300% bg-clip-text text-transparent animate-gradient">
-            DiceBench: A Post-Human Level Benchmark
+          <h1 className="mb-4">
+            <div className="text-6xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-300% bg-clip-text text-transparent animate-gradient mb-2">
+              DiceBench
+            </div>
+            <div className="text-3xl text-primary/80">
+              A Post-Human Level Benchmark
+            </div>
           </h1>
           
           <p className="text-xl font-medium text-primary/90 mb-8 max-w-2xl mx-auto">
