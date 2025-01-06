@@ -1,6 +1,6 @@
 # DiceBench 🎲
 
-A post-human level benchmark for testing superintelligent AI systems through dice prediction.
+A Post-Human Level (PHL) benchmark for testing superintelligent AI systems through dice prediction.
 
 ## Motivation
 
