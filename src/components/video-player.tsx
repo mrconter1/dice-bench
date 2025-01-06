@@ -467,7 +467,7 @@ export function VideoPlayer() {
                 setVideoStatus('Error loading video')
               }}
             >
-              <source src="/FEA.webm" type="video/webm" />
+              <source src="/dataset/FEA.webm" type="video/webm" />
               Your browser does not support the video tag.
             </video>
           </div>
@@ -637,7 +637,7 @@ export function VideoPlayer() {
               setVideoStatus('Error loading video')
             }}
           >
-            <source src="/FEA.webm" type="video/webm" />
+            <source src="/dataset/FEA.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>
         </div>
