@@ -9,27 +9,34 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-def extract_frames(video_path: str, frame_interval: int = 30) -> List[str]:
+def extract_frames(video_path: str, target_fps: int = 30) -> List[str]:
     """
     Extract frames from a video file and convert them to base64.
     
     Args:
         video_path: Path to the video file
-        frame_interval: Number of frames to skip between extractions
+        target_fps: Target frames per second to extract
     
     Returns:
         List of base64 encoded frames
     """
     video = cv2.VideoCapture(video_path)
     base64_frames = []
+    
+    # Get video properties
+    original_fps = video.get(cv2.CAP_PROP_FPS)
+    frame_interval = max(1, round(original_fps / target_fps))
     frame_count = 0
+    
+    print(f"Original video FPS: {original_fps}")
+    print(f"Frame interval: {frame_interval}")
     
     while video.isOpened():
         success, frame = video.read()
         if not success:
             break
             
-        # Only keep every nth frame
+        # Only keep frames according to target FPS
         if frame_count % frame_interval == 0:
             _, buffer = cv2.imencode(".jpg", frame)
             base64_frames.append(base64.b64encode(buffer).decode("utf-8"))
@@ -37,6 +44,7 @@ def extract_frames(video_path: str, frame_interval: int = 30) -> List[str]:
         frame_count += 1
     
     video.release()
+    print(f"Extracted {len(base64_frames)} frames")
     return base64_frames
 
 def get_model_prediction(frames: List[str], client: OpenAI) -> int:
