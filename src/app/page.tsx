@@ -194,7 +194,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="font-medium text-accent hover:text-primary transition-colors"
                 >
-                  OpenAI's video processing guide
+                  OpenAI&apos;s video processing guide
                 </a>. 
                 This standardized process ensures consistent evaluation conditions across different models while minimizing the impact 
                 of potential variations in model responses. The complete evaluation scripts are available on{' '}
