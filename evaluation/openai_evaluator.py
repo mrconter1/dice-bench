@@ -5,6 +5,8 @@ from openai import OpenAI
 import json
 from typing import List, Dict
 from dotenv import load_dotenv
+from video_mapping import get_expected_outcome
+from pathlib import Path
 
 # Load environment variables
 load_dotenv()
@@ -125,18 +127,36 @@ def evaluate_video(video_path: str, expected_outcome: int) -> Dict:
     }
 
 def main():
-    # Test with one video first
-    video_path = "public/dataset/FEA.webm"
-    expected_outcome = 5  # Based on test-data.ts
+    # Get all videos from the dataset directory
+    dataset_path = Path("public/dataset")
+    video_files = list(dataset_path.glob("*.webm"))
     
-    results = evaluate_video(video_path, expected_outcome)
+    all_results = []
     
-    # Print results
-    print("\nEvaluation Results:")
-    print(f"Video: {results['video']}")
-    print(f"Expected Outcome: {results['expected']}")
-    print(f"Model Prediction: {results['predicted']}")
-    print(f"Correct: {results['correct']}")
+    for video_path in video_files:
+        # Get expected outcome from filename
+        expected_outcome = get_expected_outcome(video_path.stem)
+        
+        if expected_outcome is None:
+            print(f"Warning: Could not determine expected outcome for {video_path.name}")
+            continue
+            
+        print(f"\nProcessing {video_path.name}...")
+        results = evaluate_video(str(video_path), expected_outcome)
+        all_results.append(results)
+        
+        # Print individual results
+        print(f"Expected: {results['expected']}, Predicted: {results['predicted']}, Correct: {results['correct']}")
+    
+    # Calculate and print summary statistics
+    total_videos = len(all_results)
+    correct_predictions = sum(1 for r in all_results if r['correct'])
+    accuracy = (correct_predictions / total_videos) * 100 if total_videos > 0 else 0
+    
+    print("\nEvaluation Summary:")
+    print(f"Total videos processed: {total_videos}")
+    print(f"Correct predictions: {correct_predictions}")
+    print(f"Accuracy: {accuracy:.2f}%")
 
 if __name__ == "__main__":
     main() 
