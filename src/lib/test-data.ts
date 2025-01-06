@@ -5,16 +5,16 @@ export type TestVideo = {
 }
 
 export const testVideos: TestVideo[] = [
-  { id: 1, path: "/example.webm", outcome: 4 },
-  { id: 2, path: "/example.webm", outcome: 4 },
-  { id: 3, path: "/example.webm", outcome: 4 },
-  { id: 4, path: "/example.webm", outcome: 4 },
-  { id: 5, path: "/example.webm", outcome: 4 },
-  { id: 6, path: "/example.webm", outcome: 4 },
-  { id: 7, path: "/example.webm", outcome: 4 },
-  { id: 8, path: "/example.webm", outcome: 4 },
-  { id: 9, path: "/example.webm", outcome: 4 },
-  { id: 10, path: "/example.webm", outcome: 4 }
+  { id: 1, path: "/FEA.webm", outcome: 5 },
+  { id: 2, path: "/FEB.webm", outcome: 5 },
+  { id: 3, path: "/FEC.webm", outcome: 5 },
+  { id: 4, path: "/FYA.webm", outcome: 4 },
+  { id: 5, path: "/FYB.webm", outcome: 4 },
+  { id: 6, path: "/FYC.webm", outcome: 4 },
+  { id: 7, path: "/SA.webm", outcome: 6 },
+  { id: 8, path: "/SB.webm", outcome: 6 },
+  { id: 9, path: "/TA.webm", outcome: 3 },
+  { id: 10, path: "/TB.webm", outcome: 3 }
 ]
 
 export function shuffleVideos(videos: TestVideo[]): TestVideo[] {
