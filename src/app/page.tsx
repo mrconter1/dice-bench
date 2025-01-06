@@ -169,7 +169,7 @@ export default function Home() {
                 </a>) available through the interactive test 
                 on this website. All videos are recorded using a handheld Galaxy S24 camera, capturing 
                 dice rolls across ten different surface types. Each sequence shows a die of varying color 
-                and material being rolled, cutting approximately one second before it comes to rest—after 
+                and material being rolled, cutting exactly 0.5 seconds before it comes to rest—after 
                 at least two bounces on the surface.
               </p>
               <p>
@@ -239,8 +239,8 @@ export default function Home() {
           <h2 className="text-secondary-foreground">Try it Yourself</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border-2 border-secondary mb-8">
             <p className="mb-6">
-              Below is an example video that demonstrates the task. The video stops after
-              two bounces, and your challenge is to predict the final number shown on the die.
+              Below is an example video that demonstrates the task. The video stops exactly 0.5 seconds before
+              the die comes to rest, and your challenge is to predict the final number shown on the die.
               You can use the controls to play, pause, step through frames, and adjust playback
               speed. 
               You can also zoom in and pan around the video using your mouse wheel or pinch gestures on mobile.
