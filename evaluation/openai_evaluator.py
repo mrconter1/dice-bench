@@ -64,8 +64,8 @@ def get_model_prediction(frames: List[str], client: OpenAI) -> int:
         {
             "role": "user",
             "content": [
-                "These frames are from a video of a dice being thrown. Based on these frames, what number will the die land on? Please respond with ONLY the number (1-6). Even if you are not sure make sure to guess.",
                 *map(lambda x: {"image": x, "resize": 768}, frames),
+                "These frames are from a video of a dice being thrown. Based on these frames, what number will the die land on? Please respond with ONLY the number (1-6). Even if you are not sure make sure to guess. You need to **ALWAYS** give a number even if you are not sure. And **only** reply with a number and nothing else.",
             ],
         },
     ]
