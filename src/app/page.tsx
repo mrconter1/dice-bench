@@ -155,6 +155,7 @@ export default function Home() {
           <h2 className="text-secondary-foreground">DiceBench Overview</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border-2 border-secondary space-y-6">
             <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Description</h3>
               <p>
                 DiceBench consists of a <strong>private evaluation set of 100 videos</strong> and a 
                 <strong> public dataset of 10 videos</strong> available through the interactive test 
@@ -170,6 +171,34 @@ export default function Home() {
                 benchmark current vision models like <strong>GPT-4V</strong> and <strong>Gemini Pro Vision</strong>{' '}
                 before requesting access to the full evaluation set, which is kept private to maintain 
                 benchmark integrity.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Evaluation Process</h3>
+              <p>
+                The evaluation methodology involves running each vision model through multiple trials per video to ensure reliable results. 
+                For both GPT-4o and Gemini Pro Vision, we conduct five independent prediction attempts per video in the dataset, with the 
+                final accuracy calculated as the average performance across these trials. The models are provided with frame sequences 
+                extracted at 24 FPS from each video and instructed to predict the final die outcome with a single numerical response, following{' '}
+                <a 
+                  href="https://cookbook.openai.com/examples/gpt_with_vision_for_video_understanding" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="font-medium text-accent hover:text-primary transition-colors"
+                >
+                  OpenAI's video processing guide
+                </a>. 
+                This standardized process ensures consistent evaluation conditions across different models while minimizing the impact 
+                of potential variations in model responses. The complete evaluation scripts are available on{' '}
+                <a 
+                  href="https://github.com/mrconter1/dice-bench/tree/main/evaluation" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="font-medium text-accent hover:text-primary transition-colors"
+                >
+                  GitHub
+                </a>.
               </p>
             </div>
 
