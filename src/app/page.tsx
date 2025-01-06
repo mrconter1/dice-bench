@@ -86,7 +86,7 @@ export default function Home() {
           <h2 className="text-secondary-foreground">Motivation</h2>
           <div className="bg-secondary/10 p-6 rounded-lg border-2 border-secondary">
             <p>
-              Our analysis of <strong>benchmark lifespans</strong> suggests we need <strong>evaluation methods</strong>{' '}
+              Our analysis of benchmark lifespans suggests we need <strong>evaluation methods</strong>{' '}
               that can meaningfully differentiate between systems operating <strong>beyond human performance</strong>. 
               Just as humans can intuitively predict the trajectory of moving vehicles—a task that would be nearly 
               impossible for simpler animals—we expect that more advanced AI systems should demonstrate{' '}

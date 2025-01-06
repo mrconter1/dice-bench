@@ -369,7 +369,7 @@ export function VideoPlayer() {
         container.removeEventListener('touchcancel', handleTouchEnd)
       }
     }
-  }, [scale])
+  }, [scale, handleWheel, handleTouchStart, handleTouchMove])
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (scale > 1) {
