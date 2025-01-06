@@ -158,7 +158,15 @@ export default function Home() {
               <h3 className="text-lg font-semibold">Description</h3>
               <p>
                 DiceBench consists of a <strong>private evaluation set of 100 videos</strong> and a 
-                <strong> public dataset of 10 videos</strong> available through the interactive test 
+                <strong> public dataset of 10 videos</strong> (available on{' '}
+                <a 
+                  href="https://github.com/mrconter1/dice-bench/tree/main/public/dataset" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="font-medium text-accent hover:text-primary transition-colors"
+                >
+                  GitHub
+                </a>) available through the interactive test 
                 on this website. All videos are recorded using a handheld Galaxy S24 camera, capturing 
                 dice rolls across ten different surface types. Each sequence shows a die of varying color 
                 and material being rolled, cutting approximately one second before it comes to rest—after 
