@@ -176,9 +176,8 @@ export default function Home() {
                 While all necessary physical information for prediction is present in the videos 
                 (momentum, rotation, surface properties), the timing makes the final outcome challenging 
                 to determine through human perception alone. The public dataset allows researchers to 
-                benchmark current vision models like <strong>GPT-4V</strong> and <strong>Gemini Pro Vision</strong>{' '}
-                before requesting access to the full evaluation set, which is kept private to maintain 
-                benchmark integrity.
+                benchmark current vision models like <strong>GPT-4o</strong> before requesting access 
+                to the full evaluation set, which is kept private to maintain benchmark integrity.
               </p>
             </div>
 
@@ -186,7 +185,7 @@ export default function Home() {
               <h3 className="text-lg font-semibold">Evaluation Process</h3>
               <p>
                 The evaluation methodology involves running each vision model through multiple trials per video to ensure reliable results. 
-                For both GPT-4o and Gemini Pro Vision, we conduct five independent prediction attempts per video in the dataset, with the 
+                For GPT-4o, we conduct five independent prediction attempts per video in the dataset, with the 
                 final accuracy calculated as the average performance across these trials. The models are provided with frame sequences 
                 extracted at 24 FPS from each video and instructed to predict the final die outcome with a single numerical response, following{' '}
                 <a 
@@ -207,6 +206,22 @@ export default function Home() {
                 >
                   GitHub
                 </a>.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Initial Results & Limitations</h3>
+              <p>
+                Our preliminary testing with GPT-4o on the public dataset (n=10) showed an accuracy of 33%, while human participants (n=3) 
+                achieved 27%. While these results are above the random baseline of 16.7%, we acknowledge that the small sample size 
+                limits their statistical significance. The higher-than-random performance might stem from inherent biases in both 
+                human perception and LLM training data regarding certain numbers or dice patterns, rather than true predictive ability.
+              </p>
+              <p>
+                However, we believe the core concept of using dice prediction as a PHL benchmark remains viable. We encourage researchers 
+                to view this project as an initial exploration of post-human evaluation methods, rather than a definitive benchmark. 
+                The evaluation scripts are openly available for those interested in conducting larger-scale tests with GPT-4o or other models. 
+                We welcome collaboration in refining this approach and developing more robust PHL benchmarks.
               </p>
             </div>
 

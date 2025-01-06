@@ -22,18 +22,13 @@ export function SortableTable() {
     },
     {
       name: 'Human Performance',
-      accuracy: -1,
-      tooltip: 'Average accuracy from 10 human participants, each predicting outcomes for the same set of 10 randomly selected videos'
+      accuracy: 27,
+      tooltip: 'One participant attempting each video in the public dataset (n=10) three times'
     },
     {
-      name: 'Gemini 1.5 Pro',
-      accuracy: -2,
-      tooltip: 'Performance of Google\'s Gemini 1.5 Pro model on the test set'
-    },
-    {
-      name: 'GPT-4V',
-      accuracy: -3,
-      tooltip: 'Performance of OpenAI\'s GPT-4V model on the test set'
+      name: 'GPT-4o',
+      accuracy: 33,
+      tooltip: 'Ten attempts per video on the public dataset (n=10)'
     }
   ]
 
