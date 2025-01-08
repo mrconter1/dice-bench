@@ -1,3 +1,4 @@
 opencv-python
 openai
-python-dotenv 
+python-dotenv
+boto3
